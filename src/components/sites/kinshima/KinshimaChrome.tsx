@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import { KinshimaImage } from "./KinshimaImage";
 import "./kinshima.css";
@@ -71,7 +71,7 @@ export function KinshimaLink({
   return <Link aria-label={ariaLabel} className={className} href={href} onClick={onClick}>{children}</Link>;
 }
 
-export function KinshimaNavigation() {
+export function KinshimaNavigation({ onContactClick }: { onContactClick: () => void }) {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [expanded, setExpanded] = useState<string | null>(null);
@@ -80,13 +80,13 @@ export function KinshimaNavigation() {
     setIsOpen(false);
     setExpanded(null);
   };
-  const inLeague = pathname.startsWith("/la-ligue-kinshima");
+  const inLeague = pathname?.startsWith("/la-ligue-kinshima") ?? false;
   const inKinshima = pathname === links.projects || pathname === links.narrative || pathname === "/";
 
   return (
     <header className="site-header">
       <div className="header-utility">
-        <a href="#contact">Contact</a>
+        <button className="contact-trigger" type="button" onClick={onContactClick}>Contact</button>
         <a href="https://youtube.com/@heroeskinshima5248?feature=shared" aria-label="YouTube">
           <KinshimaImage src="/sites/kinshima/youtube.png" alt="" width={20} height={20} />
         </a>
@@ -163,16 +163,60 @@ export function KinshimaNavigation() {
   );
 }
 
-export function KinshimaFooter() {
+export function ContactDialog({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+  const dialogRef = useRef<HTMLDialogElement>(null);
+
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+
+    if (isOpen && !dialog.open) {
+      dialog.showModal();
+    } else if (!isOpen && dialog.open) {
+      dialog.close();
+    }
+  }, [isOpen]);
+
+  return (
+    <dialog
+      ref={dialogRef}
+      className="contact-dialog"
+      aria-labelledby="contact-dialog-title"
+      onClose={onClose}
+      onClick={(event) => {
+        if (event.target === event.currentTarget) onClose();
+      }}
+    >
+      <div className="contact-dialog-content">
+        <div className="contact-dialog-copy">
+          <button className="contact-dialog-close" type="button" aria-label="Fermer la fenêtre de contact" onClick={onClose}>
+            <span aria-hidden="true">×</span>
+          </button>
+          <h2 id="contact-dialog-title">Contact</h2>
+          <div className="contact-dialog-rule" />
+          <p className="contact-dialog-name">Nicolas Muzzeto,<br />Créateur et directeur :</p>
+          <p>Email :<br /><a href="mailto:nicolas.muzzetto@gmail.com">nicolas.muzzetto@gmail.com</a></p>
+          <p>Téléphone :<br /><a href="tel:+41792265508">+41 79 226 55 08</a></p>
+          <div className="contact-dialog-rule" />
+        </div>
+        <div className="contact-dialog-image" role="img" aria-label="Nicolas Muzzeto et Roan Morand" />
+      </div>
+    </dialog>
+  );
+}
+
+export function KinshimaFooter({ onContactClick }: { onContactClick: () => void }) {
   return (
     <footer className="site-footer" id="contact">
       <div className="footer-links">
         {footerColumns.map((column, index) => (
           <div className="footer-column" key={`footer-${index}`}>
             {column.map((link) => (
-              <KinshimaLink className="footer-link" href={link.href} key={link.label}>
-                {link.label}
-              </KinshimaLink>
+              link.label === "Contact" ? (
+                <button className="footer-link contact-trigger" key={link.label} type="button" onClick={onContactClick}>{link.label}</button>
+              ) : (
+                <KinshimaLink className="footer-link" href={link.href} key={link.label}>{link.label}</KinshimaLink>
+              )
             ))}
           </div>
         ))}
@@ -191,12 +235,15 @@ export function KinshimaFooter() {
 }
 
 export function KinshimaSiteFrame({ children }: { children: ReactNode }) {
+  const [isContactOpen, setIsContactOpen] = useState(false);
+
   return (
     <div className="kinshima-page">
       <a className="skip-link" href="#main-content">Aller au contenu principal</a>
-      <KinshimaNavigation />
+      <KinshimaNavigation onContactClick={() => setIsContactOpen(true)} />
       <main className="subpage-main" id="main-content">{children}</main>
-      <KinshimaFooter />
+      <KinshimaFooter onContactClick={() => setIsContactOpen(true)} />
+      <ContactDialog isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
     </div>
   );
 }

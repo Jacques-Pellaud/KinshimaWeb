@@ -540,32 +540,123 @@
 }
 
 .kinshima-page .kp-pillar-intro {
-  background: #292929;
-  color: #fff;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  min-height: 520px;
+  background: #151112;
+  min-height: 470px;
+  overflow: hidden;
+  position: relative;
 }
 
 .kinshima-page .kp-pillar-banner {
-  height: 100%;
-  min-height: 520px;
-}
-
-.kinshima-page .kp-pillar-intro > p {
-  align-self: center;
-  font-size: 25px;
-  line-height: 1.5;
-  padding: 50px 11%;
-}
-
-.kinshima-page .kp-amn-photo-banner {
-  height: 599px;
+  height: 470px;
   width: 100%;
 }
 
-.kinshima-page .kp-amn-photo-banner-wide {
-  height: 468px;
+.kinshima-page .kp-pillar-copy {
+  background: #fff;
+  color: #171717;
+  left: 50%;
+  max-width: 555px;
+  padding: 31px 40px;
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(86%, 555px);
+}
+
+.kinshima-page .kp-pillar-copy p {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(20px, 2vw, 27px);
+  line-height: 1.52;
+}
+
+.kinshima-page .kp-amn-carousel {
+  background: #050505;
+  min-height: clamp(270px, 25.1vw, 466px);
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.kinshima-page .kp-amn-carousel-track {
+  display: flex;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  scroll-snap-type: x mandatory;
+}
+
+.kinshima-page .kp-amn-carousel-track::-webkit-scrollbar {
+  display: none;
+}
+
+.kinshima-page .kp-amn-carousel-slide {
+  flex: 0 0 100%;
+  height: clamp(270px, 25.1vw, 466px);
+  min-width: 100%;
+  overflow: hidden;
+  position: relative;
+  scroll-snap-align: center;
+}
+
+.kinshima-page .kp-amn-carousel-slide img {
+  object-fit: cover;
+}
+
+.kinshima-page .kp-amn-carousel-arrow {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  font-size: 92px;
+  height: 100%;
+  justify-content: center;
+  line-height: 1;
+  padding: 0 24px;
+  position: absolute;
+  top: 0;
+  text-shadow: 0 1px 5px #000;
+  width: 13%;
+  z-index: 1;
+}
+
+.kinshima-page .kp-amn-carousel-arrow:hover,
+.kinshima-page .kp-amn-carousel-arrow:focus-visible {
+  background: #0003;
+}
+
+.kinshima-page .kp-amn-carousel-arrow.previous {
+  left: 0;
+}
+
+.kinshima-page .kp-amn-carousel-arrow.next {
+  right: 0;
+}
+
+.kinshima-page .kp-amn-carousel-dots {
+  bottom: 17px;
+  display: flex;
+  gap: 9px;
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+.kinshima-page .kp-amn-carousel-dots button {
+  background: #fff8;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  height: 11px;
+  padding: 0;
+  width: 11px;
+}
+
+.kinshima-page .kp-amn-carousel-dots button.active {
+  background: #fff;
 }
 
 .kinshima-page .kp-martial-base {
@@ -1214,6 +1305,11 @@
   width: 100%;
 }
 
+.kinshima-page .kp-clan-crest {
+  height: 100%;
+  width: 100%;
+}
+
 .kinshima-page .kp-clan-crest-link img {
   object-fit: contain;
 }
@@ -1247,24 +1343,114 @@
 
 .kinshima-page .kp-clan-slider {
   height: 620px;
+  isolation: isolate;
+  overflow: hidden;
   position: relative;
 }
 
 .kinshima-page .kp-clan-slider-image {
   height: 100%;
+  object-fit: cover;
+  z-index: -2;
+}
+
+.kinshima-page .kp-clan-slider-overlay {
+  align-items: center;
+  background: #ffffff52;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  position: relative;
+}
+
+.kinshima-page .kp-clan-slider-slide {
+  height: 300px;
+  position: relative;
+  width: min(45vw, 360px);
 }
 
 .kinshima-page .kp-clan-slider-mark {
-  bottom: -40px;
-  height: 190px;
-  left: 50%;
+  height: 100%;
+  inset: 0;
   position: absolute;
-  transform: translateX(-50%);
-  width: 190px;
+  width: 100%;
 }
 
 .kinshima-page .kp-clan-slider-mark img {
   object-fit: contain;
+}
+
+.kinshima-page .kp-clan-slider-title {
+  background: #ffffffdf;
+  bottom: 0;
+  color: #252525;
+  left: 50%;
+  padding: 8px 18px;
+  position: absolute;
+  text-align: center;
+  text-decoration: none;
+  transform: translateX(-50%);
+  width: max-content;
+  white-space: nowrap;
+}
+
+.kinshima-page .kp-clan-slider-arrow {
+  align-items: center;
+  appearance: none;
+  background: #25252599;
+  border: 0;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  font-family: Arial, sans-serif;
+  font-size: 58px;
+  height: 84px;
+  justify-content: center;
+  line-height: 1;
+  padding: 0 0 8px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 54px;
+  z-index: 1;
+}
+
+.kinshima-page .kp-clan-slider-arrow:hover,
+.kinshima-page .kp-clan-slider-arrow:focus-visible {
+  background: #252525dd;
+}
+
+.kinshima-page .kp-clan-slider-arrow.previous {
+  left: 5%;
+}
+
+.kinshima-page .kp-clan-slider-arrow.next {
+  right: 5%;
+}
+
+.kinshima-page .kp-clan-slider-dots {
+  bottom: 24px;
+  display: flex;
+  gap: 10px;
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.kinshima-page .kp-clan-slider-dots button {
+  appearance: none;
+  background: #fff;
+  border: 2px solid #252525;
+  border-radius: 50%;
+  cursor: pointer;
+  height: 14px;
+  padding: 0;
+  width: 14px;
+}
+
+.kinshima-page .kp-clan-slider-dots button.active {
+  background: #252525;
 }
 
 .kinshima-page .kp-orders-hero {
@@ -2419,9 +2605,11 @@
   .kinshima-page .kp-pillar-detail,
   .kinshima-page .kp-pillar-detail.reverse { display: flex; flex-direction: column; }
   .kinshima-page .kp-pillar-banner { min-height: 250px; width: 100%; }
-  .kinshima-page .kp-pillar-intro > p { font-size: 18px; padding: 24px; }
-  .kinshima-page .kp-amn-photo-banner { height: 250px; }
-  .kinshima-page .kp-amn-photo-banner-wide { height: 220px; }
+  .kinshima-page .kp-pillar-intro { min-height: 390px; }
+  .kinshima-page .kp-pillar-banner { height: 390px; min-height: 390px; }
+  .kinshima-page .kp-pillar-copy { padding: 22px 24px; }
+  .kinshima-page .kp-pillar-copy p { font-size: 18px; }
+  .kinshima-page .kp-amn-carousel-arrow { font-size: 62px; padding: 0 8px; }
   .kinshima-page .kp-martial-base { padding: 35px 20px; }
   .kinshima-page .kp-martial-photo { height: 300px; width: 100%; }
   .kinshima-page .kp-amn-quote { display: flex; flex-direction: column; }
@@ -2477,7 +2665,11 @@
   .kinshima-page .kp-clan-row h2 { font-size: 31px; }
   .kinshima-page .kp-clan-row p { font-size: 15px; }
   .kinshima-page .kp-clan-slider { height: 300px; }
-  .kinshima-page .kp-clan-slider-mark { bottom: -24px; height: 110px; width: 110px; }
+  .kinshima-page .kp-clan-slider-slide { height: 190px; width: min(58vw, 260px); }
+  .kinshima-page .kp-clan-slider-arrow { font-size: 44px; height: 64px; width: 42px; }
+  .kinshima-page .kp-clan-slider-arrow.previous { left: 3%; }
+  .kinshima-page .kp-clan-slider-arrow.next { right: 3%; }
+  .kinshima-page .kp-clan-slider-dots { bottom: 14px; }
   .kinshima-page .kp-orders-hero { height: auto; min-height: 700px; padding: 28px 20px; }
   .kinshima-page .kp-orders-hero > div:last-child { margin-top: 140px; }
   .kinshima-page .kp-orders-hero h1 { font-size: 45px; }

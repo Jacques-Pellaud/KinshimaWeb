@@ -1,6 +1,8 @@
 import { KinshimaImage } from "./KinshimaImage";
 import pageImageManifest from "./page-image-manifest.json";
 import { KinshimaLink } from "./KinshimaChrome";
+import { ClanCarousel } from "./ClanCarousel";
+import { AmnCarousel } from "./AmnCarousel";
 import { assetUrl } from "@/lib/paths";
 import { clanPages, orderPages, type ClanPage, type OrderPage } from "./kinshima-pages";
 import "./kinshima-subpages.css";
@@ -85,7 +87,7 @@ function ProjectOverview({ route }: { route: string }) {
       href: "/la-compagnie-kinyobi",
       action: "Rencontrez la Compagnie",
     },
-  ];
+  ] as const;
   const team = [
     ["Muzzetto Nicolas", "Créateur et directeur"],
     ["Morand Roan", "Directeur technique et responsable admin/support"],
@@ -215,11 +217,19 @@ function NarrativePage({ route }: { route: string }) {
         <div className="kp-reading-panel"><p>Les Arts Martiaux Narratifs (AMN) sont une méthode de pratique des arts martiaux conjuguée à l’aventure (individuelle et collective) et à l’imaginaire. Par la création d’un univers propice à la recherche de soi, à l’expérimentation et à l’échange, ils permettent aux jeunes guerriers de prendre confiance en eux, en leur capacité d’agir ainsi qu’en leur capacité à vaincre dans l’adversité (résilience).</p><p>De ce fait, les AMN se placent également comme une proposition de solution face aux difficultés qui frappent la jeunesse (dépression et angoisse).</p><a href="https://www.public-health.ch/">Source : étude jeunesse</a></div>
       </section>
       <section className="kp-pillar-intro">
-        <Picture route={route} index={7} className="kp-pillar-banner" decorative />
-        <p>Les Arts Martiaux Narratifs se composent d’un socle : la pratique exigeante des arts martiaux auquel nous ajoutons 5 piliers : la vie en communauté, le leadership et la responsabilisation, la narration immersive, la gamification et la philosophie.</p>
+        <div className="kp-picture kp-pillar-banner">
+          <KinshimaImage
+            src="/sites/kinshima/subpages/177dbd49dd.jpg"
+            alt=""
+            fill
+            sizes="100vw"
+          />
+        </div>
+        <div className="kp-pillar-copy">
+          <p>Les Arts Martiaux Narratifs se composent d’un socle : la pratique exigeante des arts martiaux auquel nous ajoutons 5 piliers : la vie en communauté, le leadership et la responsabilisation, la narration immersive, la gamification et la philosophie.</p>
+        </div>
       </section>
-      <Picture route={route} index={8} className="kp-amn-photo-banner" decorative />
-      <Picture route={route} index={9} className="kp-amn-photo-banner kp-amn-photo-banner-wide" decorative />
+      <AmnCarousel />
       <section className="kp-martial-base">
         <div><SectionTitle>Les arts martiaux : le socle des NMA</SectionTitle><p>Les arts martiaux ne sont pas un but en soi, mais un chemin : une Voie (Dō) au sens du Budō japonais, c’est-à-dire un parcours de transformation intérieure. Ils ne se limitent pas à la technique ou à la performance physique, mais engagent l’être dans sa globalité : corps, esprit et cœur. Marcher sur cette voie, c’est cultiver la présence, la rigueur, l’humilité et la responsabilité de ses actes — non seulement sur le tatami, mais dans la vie quotidienne.</p></div>
         <Picture route={route} index={10} className="kp-martial-photo" />
@@ -239,13 +249,27 @@ function NarrativePage({ route }: { route: string }) {
 }
 
 function ClanLanding({ route }: { route: string }) {
+  const clanBackgroundRoutes = {
+    sek: "/la-ligue-kinshima/les-clans/seklan",
+    enma: "/la-ligue-kinshima/les-clans/son-enma",
+    arturok: "/la-ligue-kinshima/les-clans/arturok",
+    otsuyu: "/la-ligue-kinshima/les-clans/o-tsuyujin",
+    bragnir: "/la-ligue-kinshima/les-clans/bragnir",
+  } as const;
+  const clanBackgroundOverrides = {
+    sek: "/sites/kinshima/clan-seklan-background.png",
+    enma: "/sites/kinshima/clan-son-enma-background.png",
+    arturok: "/sites/kinshima/clan-arturok-background.png",
+    otsuyu: "/sites/kinshima/clan-otsuyujin-background.png",
+    bragnir: "/sites/kinshima/clan-bragnir-background.png",
+  } as const;
   const clans = [
     { title: "Les Chevaliers de Seklan", subtitle: "La noble Voie des lames et du duel", body: "Honneur et grandeur d'âme sont les qualités requises pour devenir un Chevalier de Seklan. Héritiers des Arts Martiaux Historiques Européens (AMHE), ces guerriers mènent le combat et leur vie selon les règles légendaires de la chevalerie avec un cœur et des bras de diamant.", crest: 6, href: "/la-ligue-kinshima/les-clans/seklan", color: "sek" },
     { title: "Les Moines de Son-Enma", subtitle: "La sage Voie des formes et de la maîtrise", body: "Une âme et un corps forgés par la recherche constante de la vérité, les Moines de Son Enma mènent une vie de discipline et de sagesse dans leur temple. La recherche de la perfection dans chaque mouvement et pensée fait d'eux les guerriers les plus sages de la Ligue.", crest: 7, href: "/la-ligue-kinshima/les-clans/son-enma", color: "enma" },
     { title: "Les Lutteurs d'Arturok", subtitle: "La Voie enracinée des luttes et de l'envol", body: "Leur puissance enracinée alliée à un cœur paisible fait des Lutteurs d'Arturok des guerriers inébranlables. Personne n'a jamais vu un de ces géants plier le genou face à un adversaire.", crest: 8, href: "/la-ligue-kinshima/les-clans/arturok", color: "arturok" },
     { title: "Les Ninjas d'O-Tsuyujin", subtitle: "La Voie abyssale des saisies et des flux", body: "Le secret de la puissance des Ninjas d'O-Tsuyujin vient de leur capacité à prendre la forme parfaite face à leur adversaire. Secrets et mystérieux, ces guerriers illustrent l'art d'utiliser la force d'autrui à leur propre profit.", crest: 9, href: "/la-ligue-kinshima/les-clans/o-tsuyujin", color: "otsuyu" },
     { title: "Les Combattants de Bragnir", subtitle: "La Voie enflammée du combat et du rythme", body: "Enflammés et endurants, les Combattants de Bragnir foncent vers la victoire sans avoir peur de prendre des dégâts. Un cœur festif et un corps incassable font de ces guerriers des camarades passionnés et victorieux.", crest: 10, href: "/la-ligue-kinshima/les-clans/bragnir", color: "bragnir" },
-  ];
+  ] as const;
   return (
     <div className="kp-clans-page">
       <section className="kp-clans-hero">
@@ -254,7 +278,14 @@ function ClanLanding({ route }: { route: string }) {
         <div><h1>Les clans de la Ligue Kinshima</h1><p>Les 5 clans de la Ligue Kinshima représentent différentes Voies, chacune incarnant un aspect unique de la maîtrise des arts martiaux et de leurs valeurs.</p><p>La Ligue Kinshima réunit ces clans pour garantir l&apos;équilibre et l&apos;harmonie sur la Voie, permettant à chaque guerrier d&apos;apprendre les uns des autres et de s&apos;élever.</p><Action href="#clan-list">Quel clan te correspond ?</Action></div>
       </section>
       <section className="kp-clan-list" id="clan-list">{clans.map((clan, index) => <article className={`kp-clan-row ${clan.color}${index % 2 ? " reverse" : ""}`} key={clan.title}><KinshimaLink className="kp-clan-crest-link" href={clan.href}><Picture route={route} index={clan.crest} className="kp-clan-crest" decorative /></KinshimaLink><div><KinshimaLink href={clan.href}><h2>{clan.title}</h2></KinshimaLink><h3>{clan.subtitle}</h3><p>{clan.body}</p></div></article>)}</section>
-      <section className="kp-clan-slider"><Picture route={route} index={11} className="kp-clan-slider-image" /><Picture route={route} index={12} className="kp-clan-slider-mark" decorative /></section>
+      <ClanCarousel
+        items={clans.map((clan) => ({
+          title: clan.title,
+          href: clan.href,
+          imageSrc: imageSet(route)[clan.crest]?.src ?? "",
+          backgroundSrc: clanBackgroundOverrides[clan.color] ?? imageSet(clanBackgroundRoutes[clan.color])[7]?.src ?? "",
+        }))}
+      />
     </div>
   );
 }

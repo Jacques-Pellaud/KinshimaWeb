@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import type { ReactNode } from "react";
-import { KinshimaFooter, KinshimaLink, KinshimaNavigation } from "./KinshimaChrome";
+import { ContactDialog, KinshimaFooter, KinshimaLink, KinshimaNavigation } from "./KinshimaChrome";
 import { KinshimaImage } from "./KinshimaImage";
 
 const projects = [
@@ -119,10 +119,12 @@ function ProjectCarousel() {
 }
 
 export default function KinshimaHome() {
+  const [isContactOpen, setIsContactOpen] = useState(false);
+
   return (
     <div className="kinshima-page">
       <a className="skip-link" href="#main-content">Aller au contenu principal</a>
-      <KinshimaNavigation />
+      <KinshimaNavigation onContactClick={() => setIsContactOpen(true)} />
 
       <main id="main-content">
         <section className="hero" aria-label="Bienvenue dans l'univers Kinshima">
@@ -278,7 +280,8 @@ export default function KinshimaHome() {
         </section>
       </main>
 
-      <KinshimaFooter />
+      <KinshimaFooter onContactClick={() => setIsContactOpen(true)} />
+      <ContactDialog isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
     </div>
   );
 }

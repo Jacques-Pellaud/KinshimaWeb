@@ -84,18 +84,13 @@ function ProjectCarousel() {
     <section
       className="project-carousel"
       aria-label="Les projets Kinshima"
+      aria-roledescription="carrousel"
       data-slide={activeIndex}
-      onKeyDown={(event) => {
-        if (event.key === "ArrowLeft") move(-1);
-        if (event.key === "ArrowRight") move(1);
-      }}
-      tabIndex={0}
     >
       <SiteImage
         className="carousel-image"
         src={currentProject.image}
         alt={currentProject.alt}
-        priority
       />
       <button className="carousel-arrow previous" type="button" aria-label="Précédent" onClick={() => move(-1)}>
         <span />
@@ -116,6 +111,9 @@ function ProjectCarousel() {
           />
         ))}
       </div>
+      <p className="visually-hidden" role="status" aria-live="polite">
+        Projet {activeIndex + 1} sur {projects.length} : {currentProject.title}
+      </p>
     </section>
   );
 }
@@ -123,9 +121,10 @@ function ProjectCarousel() {
 export default function KinshimaHome() {
   return (
     <div className="kinshima-page">
+      <a className="skip-link" href="#main-content">Aller au contenu principal</a>
       <KinshimaNavigation />
 
-      <main>
+      <main id="main-content">
         <section className="hero" aria-label="Bienvenue dans l'univers Kinshima">
           <SiteImage
             className="hero-image"

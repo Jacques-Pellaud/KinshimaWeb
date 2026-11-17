@@ -191,8 +191,9 @@ export function KinshimaFooter() {
 export function KinshimaSiteFrame({ children }: { children: ReactNode }) {
   return (
     <div className="kinshima-page">
+      <a className="skip-link" href="#main-content">Aller au contenu principal</a>
       <KinshimaNavigation />
-      <main className="subpage-main">{children}</main>
+      <main className="subpage-main" id="main-content">{children}</main>
       <KinshimaFooter />
     </div>
   );

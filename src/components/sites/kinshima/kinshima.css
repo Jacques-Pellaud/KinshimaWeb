@@ -33,6 +33,39 @@
   box-sizing: border-box;
 }
 
+.kinshima-page :where(a:any-link, button):focus-visible {
+  outline: 3px solid var(--kinshima-blue-bright);
+  outline-offset: 3px;
+}
+
+.skip-link {
+  background: #fff;
+  color: #111;
+  left: 12px;
+  padding: 10px 14px;
+  position: fixed;
+  top: 12px;
+  transform: translateY(-160%);
+  transition: transform 140ms ease;
+  z-index: 100;
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+.visually-hidden:where(:not(:focus-within, :active)) {
+  border: 0;
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
 .kinshima-page h1,
 .kinshima-page h2,
 .kinshima-page h3,
@@ -521,6 +554,21 @@
   background: transparent;
   height: 21px;
   width: 21px;
+}
+
+.carousel-dots button:focus-visible {
+  outline-color: #fff;
+}
+
+/* These large sections start below the opening viewport. Reserving a sensible
+   size lets supporting browsers defer their rendering without layout shifts. */
+.league-story,
+.indraz-story,
+.company-story,
+.projects-footer,
+.subpage-main > * > section:nth-of-type(n + 3) {
+  contain-intrinsic-size: auto none auto 650px;
+  content-visibility: auto;
 }
 
 .odyssey {
@@ -1541,5 +1589,12 @@
   .kinshima-page *::after {
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+@media (pointer: coarse) {
+  .carousel-dots button {
+    height: 24px;
+    width: 24px;
   }
 }

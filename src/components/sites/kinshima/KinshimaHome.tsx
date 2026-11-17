@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
 import type { ReactNode } from "react";
 import { KinshimaFooter, KinshimaLink, KinshimaNavigation } from "./KinshimaChrome";
+import { KinshimaImage } from "./KinshimaImage";
 
 const projects = [
   {
@@ -49,14 +49,13 @@ function SiteImage({
   src: string;
 }) {
   return (
-    <Image
+    <KinshimaImage
       alt={alt}
       className={className}
       fill
       priority={priority}
       sizes={sizes}
       src={src}
-      unoptimized
     />
   );
 }
@@ -101,7 +100,7 @@ function ProjectCarousel() {
       <button className="carousel-arrow previous" type="button" aria-label="Précédent" onClick={() => move(-1)}>
         <span />
       </button>
-      <a className="carousel-title" href={currentProject.href} aria-live="polite">{currentProject.title}</a>
+      <KinshimaLink className="carousel-title" href={currentProject.href}>{currentProject.title}</KinshimaLink>
       <button className="carousel-arrow next" type="button" aria-label="Suivant" onClick={() => move(1)}>
         <span />
       </button>
@@ -153,7 +152,7 @@ export default function KinshimaHome() {
               />
             </div>
             <div className="intro-invitation">
-          <Image className="intro-mark" src="/sites/kinshima/alphanos-mark.png" alt="" fill unoptimized />
+              <KinshimaImage className="intro-mark" src="/sites/kinshima/alphanos-mark.png" alt="" fill />
               <div className="intro-message">
                 <p>Kinshima, c&apos;est une quête.<br />La tienne commence ici.</p>
                 <p>Es-tu prêt à entrer dans la légende&nbsp;?</p>
@@ -172,24 +171,24 @@ export default function KinshimaHome() {
               alt="Un entraînement de combat scénique dans un dojo"
             />
           </div>
-          <Image className="odyssey-crest" src="/sites/kinshima/kinshima-crest.png" alt="" width={220} height={220} unoptimized />
+          <KinshimaImage className="odyssey-crest" src="/sites/kinshima/kinshima-crest.png" alt="" width={220} height={220} />
           <div className="odyssey-heading">
             <h2 id="odyssey-title">Une Odyssée en trois aventures</h2>
           </div>
           <div className="adventure-cards">
             <article className="adventure-card">
               <h3>Pour s&apos;inspirer</h3>
-              <Image src="/sites/kinshima/indraz-mark.png" alt="Indraz" width={186} height={175} unoptimized />
+              <KinshimaImage src="/sites/kinshima/indraz-mark.png" alt="Indraz" width={186} height={175} />
               <ProjectLink href={links.indraz}>Embarquez pour Indraz</ProjectLink>
             </article>
             <article className="adventure-card">
               <h3>Pour se rassembler</h3>
-              <Image src="/sites/kinshima/league-crest.png" alt="Blason de la Ligue Kinshima" width={220} height={173} unoptimized />
+              <KinshimaImage src="/sites/kinshima/league-crest.png" alt="Blason de la Ligue Kinshima" width={220} height={173} />
               <ProjectLink href={links.league}>Rejoignez la Ligue</ProjectLink>
             </article>
             <article className="adventure-card">
               <h3>Pour s&apos;élever</h3>
-              <Image src="/sites/kinshima/kinyobi-mark.png" alt="Logo des Kinyobis" width={163} height={175} unoptimized />
+              <KinshimaImage src="/sites/kinshima/kinyobi-mark.png" alt="Logo des Kinyobis" width={163} height={175} />
               <ProjectLink href={links.company}>Rencontrez la Compagnie</ProjectLink>
             </article>
           </div>
@@ -198,7 +197,7 @@ export default function KinshimaHome() {
         <section className="league-story" aria-labelledby="league-title">
           <div className="league-banner">
             <SiteImage src="/sites/kinshima/league-action.jpg" alt="Les élèves de la Ligue s'entraînent dans un gymnase" />
-            <Image className="league-wordmark" src="/sites/kinshima/league-wordmark.png" alt="La Ligue Kinshima" fill unoptimized />
+            <KinshimaImage className="league-wordmark" src="/sites/kinshima/league-wordmark.png" alt="La Ligue Kinshima" fill />
           </div>
           <div className="league-copy">
             <div className="league-text">
@@ -220,7 +219,7 @@ export default function KinshimaHome() {
         <section className="indraz-story" aria-labelledby="indraz-title">
           <div className="indraz-prologue">
             <SiteImage src="/sites/kinshima/indraz-prologue.png" alt="L'univers d'Indraz, entre aventure et combats" />
-            <Image className="indraz-mark" src="/sites/kinshima/indraz-mark.png" alt="Indraz" fill unoptimized />
+            <KinshimaImage className="indraz-mark" src="/sites/kinshima/indraz-mark.png" alt="Indraz" fill />
           </div>
           <div className="indraz-copy">
             <div className="indraz-text">
@@ -231,7 +230,7 @@ export default function KinshimaHome() {
             </div>
             <div className="indraz-art">
               <SiteImage src="/sites/kinshima/indraz-map.jpg" alt="" />
-              <Image className="indraz-warriors" src="/sites/kinshima/indraz-warriors.png" alt="Deux combattants de l'univers d'Indraz" fill unoptimized />
+              <KinshimaImage className="indraz-warriors" src="/sites/kinshima/indraz-warriors.png" alt="Deux combattants de l'univers d'Indraz" fill />
             </div>
           </div>
         </section>
@@ -239,7 +238,7 @@ export default function KinshimaHome() {
         <section className="company-story" aria-labelledby="company-title">
           <div className="company-banner">
             <SiteImage src="/sites/kinshima/company-banner.jpg" alt="Deux pratiquants se font face au coucher du soleil" />
-            <Image className="company-mark" src="/sites/kinshima/kinyobi-mark.png" alt="" fill unoptimized />
+            <KinshimaImage className="company-mark" src="/sites/kinshima/kinyobi-mark.png" alt="" fill />
           </div>
           <div className="company-title"><h2 id="company-title">Compagnie Kinyobi</h2></div>
           <div className="company-gallery">
@@ -267,13 +266,13 @@ export default function KinshimaHome() {
           <h2 id="projects-title">Les Projets Kinshima</h2>
           <div className="project-logos">
             <KinshimaLink href={links.indraz} ariaLabel="Découvrir Indraz">
-              <Image src="/sites/kinshima/indraz-mark.png" alt="Indraz" width={265} height={249} unoptimized />
+              <KinshimaImage src="/sites/kinshima/indraz-mark.png" alt="Indraz" width={265} height={249} />
             </KinshimaLink>
             <KinshimaLink href={links.league} ariaLabel="Découvrir la Ligue Kinshima">
-              <Image src="/sites/kinshima/league-crest.png" alt="La Ligue Kinshima" width={300} height={236} unoptimized />
+              <KinshimaImage src="/sites/kinshima/league-crest.png" alt="La Ligue Kinshima" width={300} height={236} />
             </KinshimaLink>
             <KinshimaLink href={links.company} ariaLabel="Découvrir la Compagnie Kinyobi">
-              <Image src="/sites/kinshima/kinyobi-mark.png" alt="La Compagnie Kinyobi" width={233} height={249} unoptimized />
+              <KinshimaImage src="/sites/kinshima/kinyobi-mark.png" alt="La Compagnie Kinyobi" width={233} height={249} />
             </KinshimaLink>
           </div>
           <ProjectLink href={links.projects}>En apprendre plus</ProjectLink>

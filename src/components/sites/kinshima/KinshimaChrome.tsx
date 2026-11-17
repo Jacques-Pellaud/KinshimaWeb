@@ -1,10 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import type { ReactNode } from "react";
+import { KinshimaImage } from "./KinshimaImage";
 import "./kinshima.css";
 
 const links = {
@@ -88,17 +88,17 @@ export function KinshimaNavigation() {
       <div className="header-utility">
         <a href="#contact">Contact</a>
         <a href="https://youtube.com/@heroeskinshima5248?feature=shared" aria-label="YouTube">
-          <Image src="/sites/kinshima/youtube.png" alt="" width={20} height={20} unoptimized />
+          <KinshimaImage src="/sites/kinshima/youtube.png" alt="" width={20} height={20} />
         </a>
         <a href="https://www.instagram.com/aestir_kinshima/" aria-label="Instagram">
-          <Image src="/sites/kinshima/instagram.png" alt="" width={20} height={20} unoptimized />
+          <KinshimaImage src="/sites/kinshima/instagram.png" alt="" width={20} height={20} />
         </a>
       </div>
 
       <div className="header-main">
         <Link className="brand" href="/" onClick={closeMenu}>
           <span className="brand-mark">
-            <Image src="/sites/kinshima/header-crest.png" alt="" width={54} height={68} priority unoptimized />
+            <KinshimaImage src="/sites/kinshima/header-crest.png" alt="" width={54} height={68} priority />
           </span>
           <span className="brand-copy">
             <span className="brand-name">Kinshima</span>
@@ -177,10 +177,10 @@ export function KinshimaFooter() {
       </div>
       <div className="footer-social">
         <a href="https://youtube.com/@heroeskinshima5248?feature=shared" aria-label="YouTube">
-          <Image src="/sites/kinshima/youtube.png" alt="" width={20} height={20} unoptimized />
+          <KinshimaImage src="/sites/kinshima/youtube.png" alt="" width={20} height={20} />
         </a>
         <a href="https://www.instagram.com/aestir_kinshima/" aria-label="Instagram">
-          <Image src="/sites/kinshima/instagram.png" alt="" width={20} height={20} unoptimized />
+          <KinshimaImage src="/sites/kinshima/instagram.png" alt="" width={20} height={20} />
         </a>
       </div>
       <p className="copyright">©2026 par Kinshima</p>

@@ -1,6 +1,7 @@
-import Image from "next/image";
+import { KinshimaImage } from "./KinshimaImage";
 import pageImageManifest from "./page-image-manifest.json";
 import { KinshimaLink } from "./KinshimaChrome";
+import { assetUrl } from "@/lib/paths";
 import { clanPages, orderPages, type ClanPage, type OrderPage } from "./kinshima-pages";
 import "./kinshima-subpages.css";
 
@@ -29,13 +30,12 @@ function Picture({
 
   return (
     <div className={`kp-picture ${className}`}>
-      <Image
+      <KinshimaImage
         alt={decorative ? "" : image.alt}
         fill
         priority={priority}
         sizes="(max-width: 760px) 100vw, 100vw"
         src={image.src}
-        unoptimized
       />
     </div>
   );
@@ -378,7 +378,7 @@ function CompanyPage({ route }: { route: string }) {
 
 function HugenPage({ route }: { route: string }) {
   const gallery = imageSet(route).map((image, index) => ({ image, index })).filter(({ image, index }) => index >= 8 && image.width > 250 && image.height > 200).map(({ index }) => index);
-  return <div className="kp-hugen-page"><section className="kp-hugen-hero"><Picture route={route} index={4} className="kp-hugen-hero-image" priority /><Picture route={route} index={5} className="kp-hugen-card-art" decorative /></section><section className="kp-hugen-intro"><p>Le Hugen est le jeu de carte basé sur l’univers d’Indraz.</p><p>C’est un jeu stratégique dans lequel vous livrez des combats épiques !</p><p>Le nom du Hugen est lié au Yin Yang et signifie l’usage mutuel, une partie de Hugen ne peut exister que par la présence d’un binôme avec et contre qui jouer.</p></section><section className="kp-hugen-callout"><h1>Deviens un stratège<br />du champ de bataille !</h1><div>{[6, 7, 8].map((index) => <Picture key={index} route={route} index={index} className="kp-hugen-howto" decorative />)}</div></section><section className="kp-hugen-rules"><h2>Apprendre les règles</h2><a href="/sites/kinshima/subpages/hugen-regles.pdf" download>Livret de règles officiel <span aria-hidden="true">↓</span></a></section><section className="kp-hugen-gallery"><SectionTitle>En images :</SectionTitle><Gallery route={route} indices={gallery} className="kp-masonry" /></section></div>;
+  return <div className="kp-hugen-page"><section className="kp-hugen-hero"><Picture route={route} index={4} className="kp-hugen-hero-image" priority /><Picture route={route} index={5} className="kp-hugen-card-art" decorative /></section><section className="kp-hugen-intro"><p>Le Hugen est le jeu de carte basé sur l’univers d’Indraz.</p><p>C’est un jeu stratégique dans lequel vous livrez des combats épiques !</p><p>Le nom du Hugen est lié au Yin Yang et signifie l’usage mutuel, une partie de Hugen ne peut exister que par la présence d’un binôme avec et contre qui jouer.</p></section><section className="kp-hugen-callout"><h1>Deviens un stratège<br />du champ de bataille !</h1><div>{[6, 7, 8].map((index) => <Picture key={index} route={route} index={index} className="kp-hugen-howto" decorative />)}</div></section><section className="kp-hugen-rules"><h2>Apprendre les règles</h2><a href={assetUrl("/sites/kinshima/subpages/hugen-regles.pdf")} download>Livret de règles officiel <span aria-hidden="true">↓</span></a></section><section className="kp-hugen-gallery"><SectionTitle>En images :</SectionTitle><Gallery route={route} indices={gallery} className="kp-masonry" /></section></div>;
 }
 
 export function KinshimaSubpage({ route }: { route: string }) {

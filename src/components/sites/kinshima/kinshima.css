@@ -291,7 +291,7 @@
 .intro-heading {
   align-items: center;
   background-color: #fff;
-  background-image: linear-gradient(#fffe, #fffe), url("/sites/kinshima/site-background.jpg");
+  background-image: linear-gradient(#fffe, #fffe), var(--kinshima-bg-site, url("/sites/kinshima/site-background.jpg"));
   background-position: center 36%;
   background-size: cover;
   display: flex;
@@ -403,7 +403,10 @@
 }
 
 .project-carousel {
-  background: #fff url("/sites/kinshima/site-background.jpg") center 58% / cover;
+  background-color: #fff;
+  background-image: var(--kinshima-bg-site, url("/sites/kinshima/site-background.jpg"));
+  background-position: center 58%;
+  background-size: cover;
   height: 348px;
   margin-top: 25px;
   outline: 0;
@@ -708,7 +711,7 @@
 .indraz-text {
   align-content: center;
   background-color: #f0e7c6;
-  background-image: linear-gradient(#f0e7c6d9, #f0e7c6d9), url("/sites/kinshima/indraz-map.jpg");
+  background-image: linear-gradient(#f0e7c6d9, #f0e7c6d9), var(--kinshima-bg-indraz-map, url("/sites/kinshima/indraz-map.jpg"));
   background-position: center;
   background-size: cover;
   display: flex;

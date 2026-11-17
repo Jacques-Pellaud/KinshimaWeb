@@ -124,12 +124,13 @@ export function KinshimaNavigation() {
             <button
               type="button"
               aria-label="Afficher les pages Kinshima"
+              aria-controls="kinshima-pages"
               aria-expanded={expanded === "kinshima"}
               onClick={() => setExpanded(expanded === "kinshima" ? null : "kinshima")}
             >
               <span className="nav-caret" />
             </button>
-            <div className={`nav-dropdown${expanded === "kinshima" ? " is-expanded" : ""}`}>
+            <div id="kinshima-pages" className={`nav-dropdown${expanded === "kinshima" ? " is-expanded" : ""}`}>
               <Link href={links.projects} onClick={closeMenu}>Les Projets</Link>
               <Link href={links.narrative} onClick={closeMenu}>Arts martiaux narratifs</Link>
             </div>
@@ -139,12 +140,13 @@ export function KinshimaNavigation() {
             <button
               type="button"
               aria-label="Afficher les pages de la Ligue Kinshima"
+              aria-controls="league-pages"
               aria-expanded={expanded === "league"}
               onClick={() => setExpanded(expanded === "league" ? null : "league")}
             >
               <span className="nav-caret" />
             </button>
-            <div className={`nav-dropdown${expanded === "league" ? " is-expanded" : ""}`}>
+            <div id="league-pages" className={`nav-dropdown${expanded === "league" ? " is-expanded" : ""}`}>
               <Link href={links.league2026} onClick={closeMenu}>Ligue Kinshima 2026</Link>
               <Link href={links.clans} onClick={closeMenu}>Les Clans</Link>
               <Link href={links.orders} onClick={closeMenu}>Les Ordres</Link>

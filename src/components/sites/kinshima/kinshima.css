@@ -20,17 +20,30 @@
   --kinshima-blue-bright: #047ad2;
   --kinshima-ink: #252525;
   --kinshima-display: "Kinshima Display", Georgia, serif;
+  --kinshima-body: "Kinshima Light", Arial, sans-serif;
+  --kinshima-content: 1280px;
+  --kinshima-gutter: clamp(18px, 4vw, 56px);
+  --kinshima-shadow: 0 16px 40px rgb(37 37 37 / 12%);
   background: #fff;
   color: var(--kinshima-ink);
-  font-family: var(--kinshima-display);
+  font-family: var(--kinshima-body);
   font-size: 18px;
   line-height: 1.45;
   min-width: 0;
   overflow: clip;
+  scrollbar-gutter: stable;
 }
 
 .kinshima-page * {
   box-sizing: border-box;
+}
+
+.kinshima-page img {
+  display: block;
+}
+
+.kinshima-page :where(h1, h2, h3, .brand-name, .project-link, .carousel-title) {
+  font-family: var(--kinshima-display);
 }
 
 .kinshima-page :where(a:any-link, button):focus-visible {
@@ -78,7 +91,8 @@
   background: #fff;
   border-bottom: 4px solid #d2d2d2;
   height: 117px;
-  position: relative;
+  position: sticky;
+  top: 0;
   z-index: 10;
 }
 
@@ -88,8 +102,8 @@
   height: 100%;
   justify-content: space-between;
   margin: 0 auto;
-  max-width: 1280px;
-  padding: 0 12px;
+  max-width: var(--kinshima-content);
+  padding: 0 var(--kinshima-gutter);
   position: relative;
 }
 
@@ -147,7 +161,10 @@
   color: #171717;
   display: inline-flex;
   font-size: 18px;
+  justify-content: center;
   line-height: 1;
+  min-block-size: 44px;
+  min-inline-size: 44px;
   text-decoration: none;
 }
 
@@ -169,6 +186,11 @@
   text-underline-offset: 2px;
 }
 
+.header-utility .contact-trigger {
+  min-block-size: 44px;
+  min-inline-size: 44px;
+}
+
 .header-utility img,
 .footer-social img {
   object-fit: contain;
@@ -177,6 +199,7 @@
 .contact-dialog {
   border: 0;
   height: min(768px, 100dvh);
+  max-height: calc(100dvh - 24px);
   margin: auto;
   max-width: 1425px;
   padding: 0;
@@ -197,6 +220,8 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   height: 100%;
+  max-height: inherit;
+  overflow: auto;
 }
 
 .contact-dialog-copy {
@@ -257,13 +282,12 @@
 .main-nav {
   align-items: center;
   display: flex;
-  gap: 8px;
+  flex: 1 1 auto;
+  gap: clamp(4px, 0.8vw, 14px);
   height: 44px;
-  left: 525px;
-  margin: 0;
-  position: absolute;
-  right: -50px;
-  top: 51px;
+  justify-content: flex-end;
+  margin: 22px 0 0 auto;
+  min-width: 0;
 }
 
 .main-nav > a,
@@ -290,6 +314,11 @@
   border-top: 1px solid #171717;
   min-width: 137px;
   width: 137px;
+}
+
+.nav-link.is-current {
+  border-bottom: 1px solid #171717;
+  border-top: 1px solid #171717;
 }
 
 .nav-group:nth-child(2) > a {
@@ -510,7 +539,7 @@
   align-items: center;
   background: linear-gradient(100deg, #0480d6 0%, #003eaa 52%, #15278f 100%);
   border-radius: 999px;
-  box-shadow: 0 2px 2px #0002;
+  box-shadow: 0 7px 18px rgb(3 62 170 / 22%);
   color: #fff;
   display: inline-flex;
   font-size: 17px;
@@ -1044,7 +1073,7 @@
   background: #c8c8c8;
   display: flex;
   flex-direction: column;
-  height: 296px;
+  min-height: 296px;
   justify-content: flex-start;
   padding: 14px 20px 12px;
   position: relative;
@@ -1114,11 +1143,8 @@
 
   .main-nav {
     gap: 10px;
-    left: auto;
     margin-right: 0;
-    position: static;
-    right: auto;
-    top: auto;
+    margin-top: 22px;
   }
 
   .main-nav > a,
@@ -1734,5 +1760,35 @@
   .carousel-dots button {
     height: 24px;
     width: 24px;
+  }
+}
+
+@media (min-width: 761px) {
+  .main-nav > a,
+  .nav-group > a {
+    width: auto !important;
+    padding-inline: clamp(8px, 1vw, 16px);
+  }
+
+  .nav-group.is-current > a {
+    min-width: 0;
+  }
+
+  .nav-group:nth-child(2) > a {
+    width: auto;
+  }
+}
+
+@media (max-width: 760px) {
+  .site-header {
+    position: sticky;
+  }
+
+  .header-main {
+    padding-inline: 18px;
+  }
+
+  .main-nav {
+    margin-top: 0;
   }
 }

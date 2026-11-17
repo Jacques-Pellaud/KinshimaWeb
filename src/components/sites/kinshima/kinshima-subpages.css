@@ -2766,3 +2766,37 @@
   .kinshima-page .kp-hugen-rules h2 { font-size: 34px; }
   .kinshima-page .kp-hugen-rules a { font-size: 20px; }
 }
+
+/* Shared layout polish: keep the art direction, but let content determine
+   spacing and alignment instead of making every section depend on fixed widths. */
+.kinshima-page .subpage-main {
+  container-type: inline-size;
+}
+
+.kinshima-page :where(.kp-project-list, .kp-team-grid, .kp-bio-list, .kp-pillar-details, .kp-clan-list) {
+  min-inline-size: 0;
+}
+
+.kinshima-page :where(.kp-project-copy, .kp-team-card, .kp-bio-row > div, .kp-clan-row > div) {
+  min-inline-size: 0;
+}
+
+.kinshima-page :where(.kp-project-copy p, .kp-bio-row p, .kp-clan-row p, .kp-section-title h2) {
+  text-wrap: pretty;
+}
+
+.kinshima-page :where(.kp-project-row, .kp-bio-row, .kp-clan-row, .kp-order-row, .kp-indraz-row) {
+  scroll-margin-block-start: 7rem;
+}
+
+.kinshima-page :where(.kp-action, .project-link) {
+  min-block-size: 44px;
+}
+
+@container (inline-size < 760px) {
+  .kinshima-page .kp-project-list,
+  .kinshima-page .kp-team-section,
+  .kinshima-page .kp-clan-list {
+    padding-inline: var(--kinshima-gutter, 18px);
+  }
+}

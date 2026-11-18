@@ -126,7 +126,7 @@ export default function KinshimaHome() {
       <a className="skip-link" href="#main-content">Aller au contenu principal</a>
       <KinshimaNavigation onContactClick={() => setIsContactOpen(true)} />
 
-      <main id="main-content">
+      <main id="main-content" tabIndex={-1}>
         <section className="hero" aria-label="Bienvenue dans l'univers Kinshima">
           <SiteImage
             className="hero-image"

@@ -51,6 +51,38 @@ const footerColumns = [
   ],
 ];
 
+const navigationGroups = [
+  {
+    id: "kinshima",
+    label: "Kinshima",
+    href: "/",
+    isCurrent: (pathname: string | null) => pathname === "/" || pathname === links.projects || pathname === links.narrative,
+    children: [
+      { label: "Les Projets", href: links.projects },
+      { label: "Arts martiaux narratifs", href: links.narrative },
+    ],
+  },
+  {
+    id: "league",
+    label: "La Ligue Kinshima",
+    href: links.league,
+    isCurrent: (pathname: string | null) => pathname?.startsWith("/la-ligue-kinshima") ?? false,
+    children: [
+      { label: "Ligue Kinshima 2026", href: links.league2026 },
+      { label: "Les Clans", href: links.clans },
+      { label: "Les Ordres", href: links.orders },
+      { label: "Les Hérauts", href: links.heralds },
+      { label: "Guerriers au Médaillon", href: links.medallion },
+    ],
+  },
+] as const;
+
+const navigationLinks = [
+  { label: "Indraz", href: links.indraz },
+  { label: "La Compagnie", href: links.company },
+  { label: "Le Hugen", href: links.hugen },
+] as const;
+
 export function KinshimaLink({
   children,
   className,
@@ -75,13 +107,32 @@ export function KinshimaNavigation({ onContactClick }: { onContactClick: () => v
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [expanded, setExpanded] = useState<string | null>(null);
+  const menuToggleRef = useRef<HTMLButtonElement>(null);
+  const wasOpenRef = useRef(false);
 
   const closeMenu = () => {
     setIsOpen(false);
     setExpanded(null);
   };
-  const inLeague = pathname?.startsWith("/la-ligue-kinshima") ?? false;
-  const inKinshima = pathname === links.projects || pathname === links.narrative || pathname === "/";
+
+  useEffect(() => {
+    if (!isOpen && wasOpenRef.current) menuToggleRef.current?.focus();
+    wasOpenRef.current = isOpen;
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsOpen(false);
+        setExpanded(null);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen]);
 
   return (
     <header className="site-header">
@@ -107,6 +158,7 @@ export function KinshimaNavigation({ onContactClick }: { onContactClick: () => v
         </Link>
 
         <button
+          ref={menuToggleRef}
           className={`menu-toggle${isOpen ? " is-open" : ""}`}
           type="button"
           aria-label={isOpen ? "Fermer le menu" : "Ouvrir le menu"}
@@ -119,44 +171,46 @@ export function KinshimaNavigation({ onContactClick }: { onContactClick: () => v
         </button>
 
         <nav className={`main-nav${isOpen ? " is-open" : ""}`} aria-label="Navigation principale">
-          <div className={`nav-group${inKinshima ? " is-current" : ""}`}>
-            <Link href="/" onClick={closeMenu}>Kinshima</Link>
-            <button
-              type="button"
-              aria-label="Afficher les pages Kinshima"
-              aria-controls="kinshima-pages"
-              aria-expanded={expanded === "kinshima"}
-              onClick={() => setExpanded(expanded === "kinshima" ? null : "kinshima")}
+          {navigationGroups.map((group) => {
+            const isCurrent = group.isCurrent(pathname);
+            return (
+              <div className={`nav-group${isCurrent ? " is-current" : ""}`} key={group.id}>
+                <Link href={group.href} onClick={closeMenu} aria-current={pathname === group.href ? "page" : undefined}>{group.label}</Link>
+                <button
+                  type="button"
+                  aria-label={`Afficher les pages ${group.label}`}
+                  aria-controls={`${group.id}-pages`}
+                  aria-expanded={expanded === group.id}
+                  onClick={() => setExpanded(expanded === group.id ? null : group.id)}
+                >
+                  <span className="nav-caret" />
+                </button>
+                <div id={`${group.id}-pages`} className={`nav-dropdown${expanded === group.id ? " is-expanded" : ""}`}>
+                  {group.children.map((child) => (
+                    <Link
+                      href={child.href}
+                      onClick={closeMenu}
+                      aria-current={pathname === child.href ? "page" : undefined}
+                      key={child.href}
+                    >
+                      {child.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+          {navigationLinks.map((link) => (
+            <Link
+              className={pathname === link.href ? "nav-link is-current" : "nav-link"}
+              href={link.href}
+              onClick={closeMenu}
+              aria-current={pathname === link.href ? "page" : undefined}
+              key={link.href}
             >
-              <span className="nav-caret" />
-            </button>
-            <div id="kinshima-pages" className={`nav-dropdown${expanded === "kinshima" ? " is-expanded" : ""}`}>
-              <Link href={links.projects} onClick={closeMenu}>Les Projets</Link>
-              <Link href={links.narrative} onClick={closeMenu}>Arts martiaux narratifs</Link>
-            </div>
-          </div>
-          <div className={`nav-group${inLeague ? " is-current" : ""}`}>
-            <Link href={links.league} onClick={closeMenu}>La Ligue Kinshima</Link>
-            <button
-              type="button"
-              aria-label="Afficher les pages de la Ligue Kinshima"
-              aria-controls="league-pages"
-              aria-expanded={expanded === "league"}
-              onClick={() => setExpanded(expanded === "league" ? null : "league")}
-            >
-              <span className="nav-caret" />
-            </button>
-            <div id="league-pages" className={`nav-dropdown${expanded === "league" ? " is-expanded" : ""}`}>
-              <Link href={links.league2026} onClick={closeMenu}>Ligue Kinshima 2026</Link>
-              <Link href={links.clans} onClick={closeMenu}>Les Clans</Link>
-              <Link href={links.orders} onClick={closeMenu}>Les Ordres</Link>
-              <Link href={links.heralds} onClick={closeMenu}>Les Hérauts</Link>
-              <Link href={links.medallion} onClick={closeMenu}>Guerriers au Médaillon</Link>
-            </div>
-          </div>
-          <Link className={pathname === links.indraz ? "nav-link is-current" : "nav-link"} href={links.indraz} onClick={closeMenu}>Indraz</Link>
-          <Link className={pathname === links.company ? "nav-link is-current" : "nav-link"} href={links.company} onClick={closeMenu}>La Compagnie</Link>
-          <Link className={pathname === links.hugen ? "nav-link is-current" : "nav-link"} href={links.hugen} onClick={closeMenu}>Le Hugen</Link>
+              {link.label}
+            </Link>
+          ))}
         </nav>
       </div>
     </header>
@@ -241,7 +295,7 @@ export function KinshimaSiteFrame({ children }: { children: ReactNode }) {
     <div className="kinshima-page">
       <a className="skip-link" href="#main-content">Aller au contenu principal</a>
       <KinshimaNavigation onContactClick={() => setIsContactOpen(true)} />
-      <main className="subpage-main" id="main-content">{children}</main>
+      <main className="subpage-main" id="main-content" tabIndex={-1}>{children}</main>
       <KinshimaFooter onContactClick={() => setIsContactOpen(true)} />
       <ContactDialog isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
     </div>

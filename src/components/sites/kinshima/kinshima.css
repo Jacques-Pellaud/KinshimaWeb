@@ -15,22 +15,35 @@
 }
 
 .kinshima-page {
-  --kinshima-pink: #f8e3e5;
+  --kinshima-blue-pale: #dceaf3;
   --kinshima-blue: #063eaa;
   --kinshima-blue-bright: #047ad2;
   --kinshima-ink: #252525;
   --kinshima-display: "Kinshima Display", Georgia, serif;
+  --kinshima-body: "Kinshima Light", Arial, sans-serif;
+  --kinshima-content: 1280px;
+  --kinshima-gutter: clamp(18px, 4vw, 56px);
+  --kinshima-shadow: 0 16px 40px rgb(37 37 37 / 12%);
   background: #fff;
   color: var(--kinshima-ink);
-  font-family: var(--kinshima-display);
+  font-family: var(--kinshima-body);
   font-size: 18px;
   line-height: 1.45;
   min-width: 0;
   overflow: clip;
+  scrollbar-gutter: stable;
 }
 
 .kinshima-page * {
   box-sizing: border-box;
+}
+
+.kinshima-page img {
+  display: block;
+}
+
+.kinshima-page :where(h1, h2, h3, .brand-name, .project-link, .carousel-title) {
+  font-family: var(--kinshima-display);
 }
 
 .kinshima-page :where(a:any-link, button):focus-visible {
@@ -78,7 +91,8 @@
   background: #fff;
   border-bottom: 4px solid #d2d2d2;
   height: 117px;
-  position: relative;
+  position: sticky;
+  top: 0;
   z-index: 10;
 }
 
@@ -88,8 +102,8 @@
   height: 100%;
   justify-content: space-between;
   margin: 0 auto;
-  max-width: 1280px;
-  padding: 0 12px;
+  max-width: var(--kinshima-content);
+  padding: 0 var(--kinshima-gutter);
   position: relative;
 }
 
@@ -147,7 +161,10 @@
   color: #171717;
   display: inline-flex;
   font-size: 18px;
+  justify-content: center;
   line-height: 1;
+  min-block-size: 44px;
+  min-inline-size: 44px;
   text-decoration: none;
 }
 
@@ -169,6 +186,11 @@
   text-underline-offset: 2px;
 }
 
+.header-utility .contact-trigger {
+  min-block-size: 44px;
+  min-inline-size: 44px;
+}
+
 .header-utility img,
 .footer-social img {
   object-fit: contain;
@@ -177,6 +199,7 @@
 .contact-dialog {
   border: 0;
   height: min(768px, 100dvh);
+  max-height: calc(100dvh - 24px);
   margin: auto;
   max-width: 1425px;
   padding: 0;
@@ -197,6 +220,8 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   height: 100%;
+  max-height: inherit;
+  overflow: auto;
 }
 
 .contact-dialog-copy {
@@ -257,13 +282,12 @@
 .main-nav {
   align-items: center;
   display: flex;
-  gap: 8px;
+  flex: 1 1 auto;
+  gap: clamp(4px, 0.8vw, 14px);
   height: 44px;
-  left: 525px;
-  margin: 0;
-  position: absolute;
-  right: -50px;
-  top: 51px;
+  justify-content: flex-end;
+  margin: 22px 0 0 auto;
+  min-width: 0;
 }
 
 .main-nav > a,
@@ -290,6 +314,11 @@
   border-top: 1px solid #171717;
   min-width: 137px;
   width: 137px;
+}
+
+.nav-link.is-current {
+  border-bottom: 1px solid #171717;
+  border-top: 1px solid #171717;
 }
 
 .nav-group:nth-child(2) > a {
@@ -367,7 +396,7 @@
 
 .nav-dropdown a:hover,
 .nav-dropdown a:focus-visible {
-  background: #f4eff0;
+  background: #edf4f8;
 }
 
 .nav-group:hover .nav-dropdown,
@@ -386,7 +415,7 @@
 .hero {
   height: 765px;
   isolation: isolate;
-  overflow: hidden;
+  overflow: clip;
   position: relative;
 }
 
@@ -475,7 +504,7 @@
 
 .intro-invitation {
   align-items: center;
-  background: #f1d8da;
+  background: #d3e5f3;
   display: flex;
   justify-content: center;
   padding: 30px 45px;
@@ -510,7 +539,7 @@
   align-items: center;
   background: linear-gradient(100deg, #0480d6 0%, #003eaa 52%, #15278f 100%);
   border-radius: 999px;
-  box-shadow: 0 2px 2px #0002;
+  box-shadow: 0 7px 18px rgb(3 62 170 / 22%);
   color: #fff;
   display: inline-flex;
   font-size: 17px;
@@ -666,8 +695,7 @@
 .league-story,
 .indraz-story,
 .company-story,
-.projects-footer,
-.subpage-main > * > section:nth-of-type(n + 3) {
+.projects-footer {
   contain-intrinsic-size: auto none auto 650px;
   content-visibility: auto;
 }
@@ -699,7 +727,7 @@
 
 .odyssey-heading {
   align-items: end;
-  background: var(--kinshima-pink);
+  background: var(--kinshima-blue-pale);
   display: flex;
   height: 165px;
   justify-content: center;
@@ -793,7 +821,7 @@
 
 .league-text {
   align-content: center;
-  background: #fae8e9;
+  background: #e1edf7;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -905,7 +933,7 @@
 
 .company-banner {
   height: 410px;
-  overflow: visible;
+  overflow: clip;
   position: relative;
 }
 
@@ -915,12 +943,12 @@
 }
 
 .company-mark {
-  height: 662px !important;
+  height: min(480px, 42vw) !important;
   left: 50% !important;
   object-fit: contain;
-  top: 74px !important;
+  top: 26px !important;
   transform: translateX(-50%);
-  width: min(629px, 60vw) !important;
+  width: min(500px, 48vw) !important;
   z-index: 2;
 }
 
@@ -965,7 +993,7 @@
 
 .company-copy {
   align-items: center;
-  background: #fae8e9;
+  background: #e1edf7;
   display: flex;
   flex-direction: column;
   height: 441px;
@@ -1044,7 +1072,7 @@
   background: #c8c8c8;
   display: flex;
   flex-direction: column;
-  height: 296px;
+  min-height: 296px;
   justify-content: flex-start;
   padding: 14px 20px 12px;
   position: relative;
@@ -1114,11 +1142,8 @@
 
   .main-nav {
     gap: 10px;
-    left: auto;
     margin-right: 0;
-    position: static;
-    right: auto;
-    top: auto;
+    margin-top: 22px;
   }
 
   .main-nav > a,
@@ -1329,7 +1354,7 @@
   }
 
   .nav-dropdown {
-    background: #f7f3f3;
+    background: #edf4f8;
     box-shadow: none;
     flex-basis: 100%;
     min-width: 0;
@@ -1368,15 +1393,19 @@
   }
 
   .hero-copy h1 {
-    font-size: clamp(48px, 13vw, 68px);
-    line-height: 1.15;
-    top: 17%;
+    font-size: clamp(42px, 10.5vw, 64px);
+    left: 4%;
+    line-height: 1.05;
+    top: 12%;
+    width: 92%;
   }
 
   .hero-copy p {
-    font-size: clamp(33px, 8.4vw, 44px);
-    line-height: 1.23;
-    top: 59%;
+    font-size: clamp(22px, 6.8vw, 35px);
+    left: 4%;
+    line-height: 1.15;
+    top: 69%;
+    width: 92%;
   }
 
   .intro-heading {
@@ -1734,5 +1763,680 @@
   .carousel-dots button {
     height: 24px;
     width: 24px;
+  }
+}
+
+@media (min-width: 761px) {
+  .main-nav > a,
+  .nav-group > a {
+    width: auto !important;
+    padding-inline: clamp(8px, 1vw, 16px);
+  }
+
+  .nav-group.is-current > a {
+    min-width: 0;
+  }
+
+  .nav-group:nth-child(2) > a {
+    width: auto;
+  }
+}
+
+@media (max-width: 760px) {
+  .site-header {
+    position: sticky;
+  }
+
+  .header-main {
+    padding-inline: 18px;
+  }
+
+  .main-nav {
+    margin-top: 0;
+  }
+}
+
+/* Shared visual system */
+.kinshima-page {
+  --kinshima-blue-pale: #dceaf3;
+  --kinshima-blue: #123f70;
+  --kinshima-blue-bright: #1d78bd;
+  --kinshima-ink: #18232b;
+  --kinshima-paper: #fbfaf7;
+  --kinshima-paper-deep: #f0ece5;
+  --kinshima-line: rgb(24 35 43 / 16%);
+  --kinshima-shadow: 0 24px 60px rgb(24 35 43 / 12%);
+  background: var(--kinshima-paper);
+  color: var(--kinshima-ink);
+  font-size: clamp(16px, 1.15vw, 19px);
+  line-height: 1.6;
+}
+
+.kinshima-page :where(h1, h2, h3, .brand-name, .project-link, .carousel-title) {
+  letter-spacing: -0.02em;
+}
+
+.kinshima-page :where(p, li) {
+  text-wrap: pretty;
+}
+
+.site-header {
+  background: rgb(251 250 247 / 94%);
+  border-bottom: 1px solid var(--kinshima-line);
+  box-shadow: 0 8px 30px rgb(24 35 43 / 6%);
+  height: 94px;
+  backdrop-filter: blur(18px);
+}
+
+.header-main {
+  max-width: 1440px;
+}
+
+.brand {
+  flex-basis: auto;
+  gap: 14px;
+  transform: none;
+}
+
+.brand-mark {
+  transform: none;
+}
+
+.brand-name {
+  color: var(--kinshima-blue);
+  font-size: 29px;
+}
+
+.brand-tagline {
+  color: #53636b;
+  font-size: 13px;
+  letter-spacing: 0.03em;
+}
+
+.header-utility {
+  right: max(calc((100vw - 1440px) / 2), 28px);
+  top: 4px;
+}
+
+.header-utility a,
+.header-utility .contact-trigger {
+  color: #53636b;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.main-nav {
+  gap: 4px;
+  margin-right: 0;
+  margin-top: 18px;
+}
+
+.main-nav > a,
+.nav-group > a {
+  border-radius: 999px;
+  color: var(--kinshima-ink);
+  font-size: 15px;
+  font-weight: 400;
+  height: 42px;
+  padding-inline: 14px;
+  transition: background 160ms ease, color 160ms ease;
+}
+
+.main-nav > a:hover,
+.nav-group > a:hover,
+.main-nav > a:focus-visible,
+.nav-group > a:focus-visible {
+  background: var(--kinshima-blue-pale);
+  color: var(--kinshima-blue);
+}
+
+.nav-group.is-current > a,
+.kinshima-page .nav-link.is-current {
+  background: var(--kinshima-blue);
+  border: 0;
+  color: #fff;
+}
+
+.nav-group > button {
+  border-radius: 50%;
+}
+
+.nav-dropdown {
+  border: 1px solid var(--kinshima-line);
+  border-radius: 14px;
+  box-shadow: var(--kinshima-shadow);
+  padding: 8px;
+}
+
+.nav-dropdown a {
+  border-radius: 9px;
+  padding: 10px 12px;
+}
+
+.hero {
+  height: min(780px, calc(100dvh - 94px));
+  min-height: 620px;
+}
+
+.hero::after {
+  background: linear-gradient(90deg, rgb(8 28 44 / 64%), transparent 68%),
+    linear-gradient(0deg, rgb(8 28 44 / 28%), transparent 45%);
+}
+
+.hero-image {
+  object-position: center;
+}
+
+.hero-copy h1 {
+  color: #fff;
+  font-size: clamp(56px, 8vw, 116px);
+  line-height: 0.95;
+  text-shadow: 0 10px 30px rgb(0 0 0 / 28%);
+}
+
+.hero-copy p {
+  color: #fff;
+  font-size: clamp(24px, 3vw, 42px);
+  letter-spacing: 0.02em;
+  text-shadow: 0 6px 18px rgb(0 0 0 / 24%);
+}
+
+.introduction,
+.odyssey,
+.league-story,
+.indraz-story,
+.company-story,
+.projects-footer {
+  background: var(--kinshima-paper);
+}
+
+.intro-heading,
+.odyssey-heading,
+.company-title {
+  background: var(--kinshima-blue);
+  color: #fff;
+}
+
+.intro-heading h2,
+.odyssey-heading h2,
+.company-title h2 {
+  text-shadow: none;
+}
+
+.intro-panel,
+.league-copy,
+.indraz-copy {
+  box-shadow: var(--kinshima-shadow);
+}
+
+.intro-invitation,
+.league-text,
+.indraz-text,
+.company-copy {
+  background: var(--kinshima-paper-deep);
+}
+
+.project-carousel,
+.odyssey-image,
+.league-banner,
+.indraz-prologue,
+.company-banner {
+  isolation: isolate;
+}
+
+.project-carousel::after,
+.league-banner::after,
+.company-banner::after {
+  background: linear-gradient(180deg, transparent, rgb(8 28 44 / 68%));
+  content: "";
+  inset: auto 0 0;
+  height: 45%;
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+}
+
+.carousel-title {
+  border: 1px solid rgb(255 255 255 / 54%);
+  border-radius: 999px;
+  box-shadow: 0 12px 30px rgb(0 0 0 / 18%);
+  z-index: 2;
+}
+
+.project-link {
+  background: var(--kinshima-blue);
+  border-radius: 999px;
+  box-shadow: 0 8px 18px rgb(18 63 112 / 18%);
+  letter-spacing: 0.08em;
+  padding: 9px 24px;
+  transition: background 160ms ease, transform 160ms ease;
+}
+
+.project-link:hover,
+.project-link:focus-visible {
+  background: var(--kinshima-blue-bright);
+  filter: none;
+  transform: translateY(-2px);
+}
+
+.adventure-card,
+.company-gallery article {
+  background: #fff;
+  border: 1px solid var(--kinshima-line);
+  border-radius: 18px;
+  box-shadow: 0 10px 28px rgb(24 35 43 / 7%);
+}
+
+.adventure-cards {
+  gap: 20px;
+  padding-inline: clamp(18px, 5vw, 80px);
+}
+
+.company-gallery {
+  gap: 20px;
+  padding-inline: clamp(18px, 5vw, 80px);
+}
+
+.company-gallery article {
+  padding: 16px;
+}
+
+.company-gallery h3 {
+  margin-bottom: 8px;
+}
+
+.site-footer {
+  background: #17252d;
+  color: #f7f3ed;
+  min-height: 330px;
+  padding-top: 42px;
+}
+
+.footer-column a,
+.footer-column .contact-trigger {
+  color: #dce5e6;
+  text-decoration-color: rgb(220 229 230 / 50%);
+}
+
+.footer-column a:hover,
+.footer-column .contact-trigger:hover {
+  color: #fff;
+}
+
+.copyright {
+  color: #aab9bd;
+}
+
+@media (max-width: 760px) {
+  .site-header {
+    height: 76px;
+  }
+
+  .header-main {
+    padding-inline: 16px;
+  }
+
+  .brand-name {
+    font-size: 24px;
+  }
+
+  .brand-tagline {
+    font-size: 11px;
+  }
+
+  .menu-toggle {
+    background: var(--kinshima-paper);
+    border-color: var(--kinshima-line);
+    border-radius: 12px;
+  }
+
+  .main-nav {
+    background: var(--kinshima-paper);
+    border-top: 1px solid var(--kinshima-line);
+    box-shadow: var(--kinshima-shadow);
+    top: 73px;
+  }
+
+  .main-nav > a,
+  .nav-group > a {
+    border-radius: 10px;
+    height: 50px;
+  }
+
+  .hero {
+    height: calc(100dvh - 76px);
+    min-height: 560px;
+  }
+
+  .hero-copy h1 {
+    font-size: clamp(50px, 14vw, 78px);
+  }
+
+  .hero-copy p {
+    font-size: clamp(23px, 7vw, 35px);
+  }
+
+  .adventure-card,
+  .company-gallery article {
+    border-radius: 14px;
+  }
+}
+
+/* Keep media motion subtle and composited, while leaving the layout static. */
+@keyframes kinshima-image-reveal {
+  from {
+    opacity: 0.72;
+    transform: scale(1.035) translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.kinshima-page .subpage-main > * {
+  inline-size: 100%;
+  max-inline-size: 100%;
+  min-inline-size: 0;
+}
+
+.kinshima-page :where(.kp-amn-carousel, .kp-amn-carousel-track, .kp-clan-slider, .kp-featured-clans) {
+  max-inline-size: 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .kinshima-page :where(
+    .hero-image,
+    .intro-photo,
+    .carousel-image,
+    .odyssey-image,
+    .league-banner,
+    .league-photo,
+    .indraz-prologue,
+    .indraz-art,
+    .company-banner,
+    .gallery-image,
+    .kp-picture
+  ) img {
+    animation: kinshima-image-reveal 720ms cubic-bezier(0.2, 0.75, 0.25, 1) both;
+    transition: transform 500ms cubic-bezier(0.2, 0.75, 0.25, 1);
+    will-change: transform, opacity;
+  }
+
+  .kinshima-page :where(
+    .hero-image,
+    .intro-photo,
+    .carousel-image,
+    .odyssey-image,
+    .league-banner,
+    .league-photo,
+    .indraz-prologue,
+    .indraz-art,
+    .company-banner,
+    .gallery-image,
+    .kp-picture
+  ):hover img {
+    transform: scale(1.035);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kinshima-page :where(
+    .hero-image,
+    .intro-photo,
+    .carousel-image,
+    .odyssey-image,
+    .league-banner,
+    .league-photo,
+    .indraz-prologue,
+    .indraz-art,
+    .company-banner,
+    .gallery-image,
+    .kp-picture
+  ) img {
+    transition: none;
+  }
+}
+
+@keyframes kinshima-parallax {
+  from {
+    transform: translateY(4%) scale(1.05);
+  }
+
+  to {
+    transform: translateY(-4%) scale(1.05);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .kinshima-page :where(
+      .hero-image,
+      .kp-narrative-hero-image,
+      .kp-clans-hero-image,
+      .kp-orders-hero-photo,
+      .kp-league-hero-photo,
+      .kp-2026-hero-image,
+      .kp-indraz-hero-image,
+      .kp-company-hero-image,
+      .kp-medallion-hero-image,
+      .kp-heralds-hero-image,
+      .kp-hugen-hero-image,
+      .kp-full-banner,
+      .kp-project-team-banner,
+      .kp-project-bio-banner,
+      .kp-league-transition-banner,
+      .kp-amn-transition-banner
+    ) img {
+      animation-name: kinshima-image-reveal, kinshima-parallax;
+      animation-duration: 720ms, 1ms;
+      animation-timing-function: cubic-bezier(0.2, 0.75, 0.25, 1), linear;
+      animation-fill-mode: both, both;
+      animation-timeline: auto, view();
+      animation-range: normal, entry 0% exit 100%;
+    }
+  }
+}
+
+/* Home page: keep each banner's content in normal layout flow so enlarged
+   type, translations, and narrow screens can never make separate blocks
+   collide. */
+.hero {
+  align-items: center;
+  display: flex;
+  height: min(780px, calc(100dvh - 94px));
+  min-height: 620px;
+}
+
+.hero-copy {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(18px, 3vw, 38px);
+  inset: auto;
+  margin-inline: max(calc((100% - 980px) / 2 + 8px), 6vw);
+  max-inline-size: min(590px, 62vw);
+  pointer-events: auto;
+  position: relative;
+  width: 100%;
+  z-index: 2;
+}
+
+.hero-copy h1,
+.hero-copy p {
+  left: auto;
+  max-inline-size: 100%;
+  position: static;
+  top: auto;
+  width: auto;
+}
+
+.hero-copy h1 {
+  font-size: clamp(56px, 8vw, 116px);
+  line-height: 0.95;
+  text-wrap: balance;
+}
+
+.hero-copy p {
+  font-size: clamp(24px, 3vw, 42px);
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+.company-story {
+  block-size: auto;
+  content-visibility: visible;
+  contain-intrinsic-size: auto;
+  display: grid;
+}
+
+.company-gallery {
+  block-size: auto;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  margin-block: clamp(28px, 5vw, 72px);
+}
+
+.company-gallery article {
+  min-inline-size: 0;
+}
+
+.company-gallery h3 {
+  font-size: clamp(42px, 4.4vw, 65px);
+  line-height: 1.05;
+  margin-block: 0 16px;
+  text-wrap: balance;
+}
+
+.gallery-image {
+  aspect-ratio: 16 / 10;
+  block-size: auto;
+  flex: none;
+}
+
+.company-copy {
+  block-size: auto;
+  min-block-size: 0;
+  padding-block: clamp(42px, 6vw, 82px);
+}
+
+@media (max-width: 760px) {
+  .hero {
+    height: calc(100dvh - 76px);
+    min-height: 560px;
+  }
+
+  .hero-copy {
+    gap: 20px;
+    margin-inline: 4%;
+    max-inline-size: 92%;
+  }
+
+  .hero-copy h1 {
+    font-size: clamp(50px, 14vw, 78px);
+  }
+
+  .hero-copy p {
+    font-size: clamp(23px, 7vw, 35px);
+  }
+
+  .company-gallery {
+    grid-template-columns: 1fr;
+    margin-block: 22px 0;
+  }
+
+  .company-gallery article {
+    margin-block-end: 18px;
+  }
+
+  .gallery-image {
+    aspect-ratio: 16 / 10;
+  }
+}
+
+/* Give the three project marks and their calls to action more visual weight
+   without allowing a card's contents to exceed its available width. */
+.adventure-card > img {
+  height: 210px;
+  margin-top: 12px;
+  width: min(100%, 300px);
+}
+
+.adventure-card:nth-child(2) > img {
+  height: 210px;
+  width: min(100%, 270px);
+}
+
+.adventure-card .project-link {
+  font-size: 14px;
+  margin-top: 10px;
+  max-width: min(100%, 300px);
+  min-height: 44px;
+  padding: 9px 22px;
+}
+
+@media (max-width: 760px) {
+  .adventure-card > img,
+  .adventure-card:nth-child(2) > img {
+    height: 165px;
+    width: min(100%, 230px);
+  }
+
+  .adventure-card .project-link {
+    font-size: 14px;
+    min-height: 44px;
+  }
+}
+
+/* Larger reading and action targets in the home-page stories below the
+   odyssey cards. The existing flex/grid sections retain natural spacing. */
+.league-text h2,
+.indraz-text h2 {
+  font-size: clamp(42px, 3.4vw, 52px);
+}
+
+.league-text p,
+.indraz-text p {
+  font-size: clamp(17px, 1.35vw, 20px);
+  line-height: 1.48;
+  max-inline-size: 34rem;
+}
+
+.league-text .project-link,
+.indraz-text .project-link,
+.company-copy .project-link,
+.projects-footer > .project-link {
+  font-size: 16px;
+  margin-top: 20px;
+  min-height: 46px;
+  padding: 10px 26px;
+}
+
+.company-copy p {
+  font-size: clamp(21px, 1.8vw, 29px);
+  line-height: 1.52;
+  max-inline-size: 70rem;
+}
+
+@media (max-width: 760px) {
+  .league-text h2,
+  .indraz-text h2 {
+    font-size: clamp(32px, 8.5vw, 42px);
+  }
+
+  .league-text p,
+  .indraz-text p,
+  .company-copy p {
+    font-size: 17px;
+    line-height: 1.5;
+  }
+
+  .league-text .project-link,
+  .indraz-text .project-link,
+  .company-copy .project-link,
+  .projects-footer > .project-link {
+    font-size: 15px;
+    min-height: 46px;
   }
 }

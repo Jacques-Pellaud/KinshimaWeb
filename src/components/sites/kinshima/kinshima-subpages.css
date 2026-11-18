@@ -76,13 +76,14 @@
 
 /* Projects overview */
 .kinshima-page .kp-projects-hero {
-  min-height: 760px;
+  min-height: 860px;
+  overflow: hidden;
   padding-top: 0;
   position: relative;
 }
 
 .kinshima-page .kp-projects-hero-image {
-  height: 700px;
+  height: 820px;
   width: 100%;
 }
 
@@ -91,23 +92,78 @@
 }
 
 .kinshima-page .kp-project-hero-logos {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto auto;
+  justify-items: center;
   align-items: center;
-  display: flex;
-  gap: clamp(20px, 5vw, 90px);
-  height: 205px;
-  justify-content: center;
-  left: 50%;
+  column-gap: clamp(12px, 3vw, 32px);
+  row-gap: 2px;
+  height: auto;
+  left: 0;
   position: absolute;
-  top: 42px;
-  transform: translateX(-50%);
-  width: min(900px, 90%);
+  top: 0;
+  transform: none;
+  width: 100%;
   z-index: 1;
+  isolation: isolate;
+  padding: 16px 4% 28px;
+}
+
+/* Water drop / hanging teardrop:
+   hangs seamlessly across the entire width (overflows sides with negative inset so blur never cuts in),
+   with increased transparency so the artwork stays legible underneath */
+.kinshima-page .kp-project-hero-logos::before {
+  background:
+    radial-gradient(
+      ellipse 65% 90% at 50% 40% in oklab,
+      rgb(7 28 57 / 76%) 0%,
+      rgb(7 28 57 / 62%) 50%,
+      rgb(7 28 57 / 28%) 80%,
+      transparent 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgb(7 28 57 / 78%) 0%,
+      rgb(7 28 57 / 55%) 35%,
+      transparent 85%
+    );
+  border-radius: 0 0 50% 50% / 0 0 45% 45%;
+  content: "";
+  filter: blur(16px);
+  inset: -10px -50px -15px -50px;
+  pointer-events: none;
+  position: absolute;
+  z-index: 0;
 }
 
 .kinshima-page .kp-project-logo {
-  flex: 1 1 0;
-  height: 100%;
-  max-width: 240px;
+  height: 190px;
+  width: 100%;
+  max-width: 360px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Inverted triangle formation: 2 logos on top (Indraz & Kinyobi), 1 logo centered below (Ligue Kinshima) */
+.kinshima-page .kp-project-logo:nth-child(1) {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  height: 200px;
+  max-width: 420px;
+  margin-top: -10px;
+}
+
+.kinshima-page .kp-project-logo:nth-child(2) {
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: end;
+}
+
+.kinshima-page .kp-project-logo:nth-child(3) {
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: start;
 }
 
 .kinshima-page .kp-project-logo img {
@@ -119,10 +175,10 @@
   box-shadow: 0 4px 18px #0002;
   left: 50%;
   max-width: 860px;
-  padding: 22px 36px 26px;
+  padding: 26px 38px 28px;
   position: absolute;
   text-align: center;
-  top: 280px;
+  top: 480px;
   transform: translateX(-50%);
   width: min(86%, 860px);
   z-index: 2;
@@ -199,6 +255,10 @@
   height: 300px;
 }
 
+.kinshima-page .kp-project-row-image img {
+  object-fit: contain;
+}
+
 .kinshima-page .kp-team-section {
   background: #e7e7e7;
   padding: 52px 4% 68px;
@@ -206,10 +266,10 @@
 
 .kinshima-page .kp-team-grid {
   display: grid;
-  gap: 22px;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   margin: auto;
-  max-width: 1320px;
+  max-width: 1400px;
 }
 
 .kinshima-page .kp-project-team-banner {
@@ -228,18 +288,18 @@
 }
 
 .kinshima-page .kp-team-card h3 {
-  font-size: 23px;
+  font-size: clamp(17px, 1.4vw, 22px);
   line-height: 1.15;
 }
 
 .kinshima-page .kp-team-card p {
-  font-size: 15px;
+  font-size: clamp(13px, 1.1vw, 15px);
   line-height: 1.35;
 }
 
 .kinshima-page .kp-quote-feature {
   align-items: stretch;
-  background: #ecd1d3;
+  background: #d5e6f3;
   display: grid;
   grid-template-columns: 1fr minmax(300px, 430px) 1fr;
   min-height: 664px;
@@ -253,7 +313,7 @@
 
 .kinshima-page .kp-quote-feature blockquote {
   align-self: center;
-  background: #fae8e9;
+  background: #e1edf7;
   font-size: 27px;
   line-height: 1.35;
   padding: 35px 30px;
@@ -381,7 +441,7 @@
 
 .kinshima-page .kp-project-footer-logo {
   align-items: center;
-  background: #e7c4c7;
+  background: #c9dfef;
   display: flex;
   justify-content: center;
   padding: 24px;
@@ -394,6 +454,269 @@
 
 .kinshima-page .kp-project-footer-mark img {
   object-fit: contain;
+}
+
+/* Shared editorial treatment for every subpage family */
+.kinshima-page :where(
+  .kp-projects-page,
+  .kp-narrative-page,
+  .kp-clans-page,
+  .kp-clan-profile,
+  .kp-league-page,
+  .kp-orders-page,
+  .kp-order-profile,
+  .kp-2026-page,
+  .kp-medallion-page,
+  .kp-heralds-page,
+  .kp-indraz-page,
+  .kp-company-page,
+  .kp-hugen-page
+) {
+  background: var(--kinshima-paper);
+}
+
+.kinshima-page .kp-section-title {
+  margin-bottom: clamp(28px, 4vw, 52px);
+  max-width: 1060px;
+}
+
+.kinshima-page .kp-section-title h2,
+.kinshima-page :where(
+  .kp-projects-intro h1,
+  .kp-narrative-title h2,
+  .kp-clans-hero h1,
+  .kp-orders-hero h1,
+  .kp-league-intro h1,
+  .kp-indraz-hero h1,
+  .kp-company-hero h1,
+  .kp-medallion-hero h1,
+  .kp-heralds-hero h1,
+  .kp-hugen-hero h1
+) {
+  color: var(--kinshima-blue);
+  text-wrap: balance;
+}
+
+.kinshima-page .kp-eyebrow {
+  color: var(--kinshima-blue-bright);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+}
+
+.kinshima-page .kp-action {
+  background: var(--kinshima-blue);
+  border-radius: 999px;
+  box-shadow: 0 8px 18px rgb(18 63 112 / 18%);
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  min-height: 42px;
+  padding: 9px 24px;
+  transition: background 160ms ease, transform 160ms ease;
+}
+
+.kinshima-page .kp-action:hover,
+.kinshima-page .kp-action:focus-visible {
+  background: var(--kinshima-blue-bright);
+  filter: none;
+  transform: translateY(-2px);
+}
+
+.kinshima-page :where(
+  .kp-project-list,
+  .kp-team-section,
+  .kp-pillars-section,
+  .kp-foundations,
+  .kp-heroes-clans,
+  .kp-order-cards,
+  .kp-clan-leaders,
+  .kp-clan-gallery,
+  .kp-medallion-group,
+  .kp-medallion-warriors,
+  .kp-heralds-group
+) {
+  background: var(--kinshima-paper-deep);
+}
+
+.kinshima-page :where(
+  .kp-project-row,
+  .kp-bio-row,
+  .kp-pillar-detail,
+  .kp-2026-story,
+  .kp-order-row,
+  .kp-clan-row,
+  .kp-foundation-cards article,
+  .kp-order-cards article
+) {
+  border-color: var(--kinshima-line);
+}
+
+.kinshima-page :where(
+  .kp-project-row,
+  .kp-bio-row,
+  .kp-pillar-detail,
+  .kp-2026-story,
+  .kp-order-row
+) > :where(div, article) {
+  text-wrap: pretty;
+}
+
+.kinshima-page :where(
+  .kp-project-row-image,
+  .kp-team-photo,
+  .kp-bio-photo,
+  .kp-pillar-photo,
+  .kp-confidence-bg,
+  .kp-foundation-mark,
+  .kp-order-mark,
+  .kp-featured-person,
+  .kp-clan-crest-link,
+  .kp-leader-photo,
+  .kp-medallion-person,
+  .kp-warrior-photo
+) {
+  border-radius: 14px;
+  overflow: clip;
+}
+
+.kinshima-page :where(
+  .kp-projects-intro,
+  .kp-reading-panel,
+  .kp-narrative-callout > div:last-child,
+  .kp-profile-title,
+  .kp-clan-quote blockquote,
+  .kp-order-story,
+  .kp-2026-date,
+  .kp-2026-prologue > div
+) {
+  box-shadow: var(--kinshima-shadow);
+}
+
+.kinshima-page .kp-projects-intro {
+  border: 1px solid rgb(255 255 255 / 70%);
+  border-radius: 20px;
+}
+
+.kinshima-page .kp-bio-list {
+  grid-template-rows: none;
+  grid-auto-rows: max-content;
+}
+
+.kinshima-page .kp-project-row {
+  gap: clamp(24px, 4vw, 70px);
+  min-height: 500px;
+}
+
+.kinshima-page .kp-project-copy h2,
+.kinshima-page .kp-bio-row h2,
+.kinshima-page .kp-pillar-detail h3 {
+  color: var(--kinshima-blue);
+}
+
+.kinshima-page .kp-project-copy p,
+.kinshima-page .kp-bio-row p,
+.kinshima-page .kp-pillar-detail > div > p:last-child {
+  color: #42515a;
+}
+
+.kinshima-page .kp-team-card,
+.kinshima-page .kp-featured-clans article,
+.kinshima-page .kp-foundation-cards article,
+.kinshima-page .kp-order-cards article {
+  border-radius: 16px;
+}
+
+.kinshima-page .kp-team-card {
+  background: #fff;
+  box-shadow: 0 10px 28px rgb(24 35 43 / 7%);
+  padding: 12px;
+}
+
+.kinshima-page .kp-team-photo {
+  margin-bottom: 14px;
+}
+
+.kinshima-page .kp-team-card h3 {
+  color: var(--kinshima-blue);
+}
+
+.kinshima-page .kp-quote-feature blockquote,
+.kinshima-page .kp-amn-quote blockquote,
+.kinshima-page .kp-clan-quote blockquote {
+  border-left: 4px solid var(--kinshima-blue-bright);
+  border-radius: 14px;
+  color: var(--kinshima-ink);
+}
+
+.kinshima-page .kp-foundation-cards article,
+.kinshima-page .kp-order-cards article {
+  background: #fff;
+  box-shadow: 0 12px 34px rgb(24 35 43 / 8%);
+  padding: 24px;
+}
+
+.kinshima-page .kp-foundation-cards h3,
+.kinshima-page .kp-order-cards h3,
+.kinshima-page .kp-clan-row h2,
+.kinshima-page .kp-order-row h2 {
+  color: var(--kinshima-blue);
+}
+
+.kinshima-page .kp-clan-row :where(h2, h3, p),
+.kinshima-page .kp-order-row :where(h2, p) {
+  text-wrap: balance;
+}
+
+.kinshima-page .kp-clan-row > div:last-child,
+.kinshima-page .kp-order-row > div {
+  max-width: 620px;
+}
+
+.kinshima-page .kp-clan-slider,
+.kinshima-page .kp-orders-hero,
+.kinshima-page .kp-profile-hero,
+.kinshima-page .kp-order-profile-hero {
+  isolation: isolate;
+}
+
+.kinshima-page .kp-clan-slider-overlay {
+  background: linear-gradient(135deg, rgb(220 234 243 / 70%), rgb(255 255 255 / 20%));
+}
+
+.kinshima-page .kp-clan-slider-title {
+  border-radius: 999px;
+  box-shadow: 0 10px 26px rgb(0 0 0 / 15%);
+  font-size: 17px;
+}
+
+@media (max-width: 760px) {
+  .kinshima-page .kp-section-title h2 {
+    font-size: clamp(34px, 10vw, 52px);
+  }
+
+  .kinshima-page .kp-projects-intro {
+    border-radius: 14px;
+    padding: 22px;
+  }
+
+  .kinshima-page .kp-project-row {
+    gap: 22px;
+    min-height: 0;
+    padding: 34px 20px;
+  }
+
+  .kinshima-page .kp-team-card,
+  .kinshima-page .kp-foundation-cards article,
+  .kinshima-page .kp-order-cards article {
+    border-radius: 14px;
+  }
+
+  .kinshima-page .kp-clan-slider-title {
+    max-width: 80vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }
 
 /* Arts Martiaux Narratifs */
@@ -459,7 +782,7 @@
 
 .kinshima-page .kp-narrative-callout {
   align-items: center;
-  background: #fae8e9;
+  background: #e1edf7;
   display: grid;
   grid-template-columns: 1fr 1fr;
   min-height: 385px;
@@ -707,7 +1030,7 @@
 }
 
 .kinshima-page .kp-pillars-section {
-  background: #f9e7e9;
+  background: #e1edf7;
   padding: 60px 4% 70px;
 }
 
@@ -832,7 +1155,7 @@
 .kinshima-page .kp-confidence-section article {
   align-items: center;
   aspect-ratio: 1;
-  background: radial-gradient(circle at 40% 40%, #f8d3cc, #dd9c91);
+  background: radial-gradient(circle at 40% 40%, #d8eaf7, #88b4d2);
   border-radius: 50%;
   display: flex;
   font-size: 29px;
@@ -906,9 +1229,9 @@
 
 /* League, clans and orders */
 .kinshima-page .kp-league-hero {
-  background: #fae4e6;
+  background: #e1edf7;
   height: 895px;
-  margin-bottom: 93px;
+  margin-bottom: 0;
   position: relative;
 }
 
@@ -917,12 +1240,21 @@
 }
 
 .kinshima-page .kp-league-wordmark {
-  height: 250px;
+  background: radial-gradient(
+    ellipse at center,
+    rgb(255 255 255 / 24%) 0%,
+    rgb(255 255 255 / 18%) 48%,
+    rgb(255 255 255 / 8%) 68%,
+    transparent 82%
+  );
+  bottom: 130px;
+  height: 300px;
   left: 50%;
+  padding: 18px 28px;
   position: absolute;
-  top: 327px;
   transform: translateX(-50%);
-  width: min(560px, 48vw);
+  width: min(680px, 58vw);
+  z-index: 2;
 }
 
 .kinshima-page .kp-league-wordmark img {
@@ -930,25 +1262,38 @@
 }
 
 .kinshima-page .kp-league-hero > p {
-  background: #fae4e6e8;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgb(7 28 57 / 78%) 25%,
+    rgb(7 28 57 / 92%) 100%
+  );
   bottom: 0;
+  color: #fff;
   font-size: 32px;
   left: 0;
   line-height: 1.25;
-  padding: 25px 12%;
+  padding: 90px 8% 30px;
   position: absolute;
   text-align: center;
   width: 100%;
+  z-index: 1;
 }
 
 .kinshima-page .kp-league-join {
   height: 855px;
-  margin-bottom: 301px;
+  margin-bottom: 0;
   position: relative;
 }
 
 .kinshima-page .kp-league-join-photo {
   height: 100%;
+  overflow: hidden;
+}
+
+.kinshima-page .kp-league-join-photo img {
+  transition: none;
+  will-change: transform;
 }
 
 .kinshima-page .kp-league-join::after {
@@ -975,14 +1320,19 @@
   height: 100%;
 }
 
-.kinshima-page .kp-league-intro-wordmark {
-  height: 414px;
-  left: 50%;
+.kinshima-page .kp-league-intro-photo::after {
+  background: linear-gradient(180deg, rgb(9 29 48 / 8%) 0%, rgb(9 29 48 / 12%) 38%, rgb(9 29 48 / 42%) 100%);
+  content: "";
+  inset: 0;
+  pointer-events: none;
   position: absolute;
-  top: 163px;
-  transform: translateX(-50%);
-  width: min(711px, 56vw);
   z-index: 1;
+}
+
+.kinshima-page .kp-league-intro-wordmark {
+  height: 250px;
+  margin: -18px auto 0;
+  width: min(520px, 96%);
 }
 
 .kinshima-page .kp-league-intro-wordmark img {
@@ -990,26 +1340,37 @@
 }
 
 .kinshima-page .kp-league-intro > div:last-child {
-  background: #ffffffdf;
-  bottom: 0;
-  left: 0;
-  padding: 28px 10%;
+  backdrop-filter: blur(12px);
+  background: rgb(255 255 255 / 94%);
+  border: 1px solid rgb(255 255 255 / 78%);
+  border-radius: 22px;
+  box-shadow: 0 22px 55px rgb(9 29 48 / 18%);
+  left: 50%;
+  max-width: 860px;
+  padding: 24px 48px 28px;
   position: absolute;
   text-align: center;
-  width: 100%;
-  z-index: 2;
+  top: 0;
+  transform: translate(-50%, -50%);
+  width: calc(100% - 48px);
+  z-index: 3;
 }
 
 .kinshima-page .kp-league-intro h1 {
-  font-size: clamp(58px, 6.3vw, 90px);
-  margin-bottom: 8px;
+  font-size: clamp(48px, 5.2vw, 76px);
+  line-height: 1;
+  margin-bottom: 10px;
 }
 
 .kinshima-page .kp-league-intro p {
-  font-size: 20px;
-  line-height: 1.35;
-  margin: 0 auto 9px;
-  max-width: 850px;
+  font-size: 18px;
+  line-height: 1.45;
+  margin: 0 auto 7px;
+  max-width: 760px;
+}
+
+.kinshima-page .kp-league-intro .kp-action {
+  margin-top: 8px;
 }
 
 .kinshima-page .kp-league-transition-banner {
@@ -1027,7 +1388,7 @@
 }
 
 .kinshima-page .kp-foundations {
-  background: #fae8e9;
+  background: #e1edf7;
   padding: 58px 4% 66px;
   text-align: center;
 }
@@ -1052,16 +1413,18 @@
 
 .kinshima-page .kp-foundation-cards article {
   align-content: start;
-  background: #eed6d8;
+  background: #d2e4f3;
   display: grid;
+  gap: 16px;
+  grid-template-rows: 180px auto 1fr auto;
   justify-items: center;
   min-height: 440px;
   padding: 26px 8%;
 }
 
 .kinshima-page .kp-foundation-mark {
-  height: 165px;
-  width: 200px;
+  height: 180px;
+  width: 230px;
 }
 
 .kinshima-page .kp-foundation-mark img {
@@ -1071,11 +1434,14 @@
 .kinshima-page .kp-foundation-cards h3 {
   font-size: 34px;
   line-height: 1.1;
+  margin: 0;
 }
 
 .kinshima-page .kp-foundation-cards p {
   font-size: 17px;
   line-height: 1.35;
+  margin: 0;
+  max-width: 290px;
 }
 
 .kinshima-page .kp-foundation-cards .kp-action {
@@ -1083,36 +1449,56 @@
 }
 
 .kinshima-page .kp-heroes-clans {
-  background: #f7e3e5;
+  background: #e7f0f6;
   padding: 62px 3% 72px;
   text-align: center;
 }
 
 .kinshima-page .kp-featured-clans {
   display: grid;
+  gap: 16px;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   margin: auto;
   max-width: 1380px;
 }
 
 .kinshima-page .kp-featured-clans article {
-  background: #262126;
-  color: #fff;
-  min-height: 540px;
+  background: #dceaf3;
+  border: 1px solid rgb(24 35 43 / 10%);
+  color: var(--kinshima-ink);
+  display: grid;
+  grid-template-rows: 54px minmax(320px, 1fr) 116px;
+  min-width: 0;
+  overflow: visible;
   position: relative;
+  box-shadow: 0 12px 28px rgb(24 35 43 / 9%);
+  transition: box-shadow 160ms ease, transform 160ms ease;
+}
+
+.kinshima-page .kp-featured-clans article:hover {
+  box-shadow: 0 16px 34px rgb(18 63 112 / 20%);
+  transform: translateY(-3px);
 }
 
 .kinshima-page .kp-featured-person {
-  height: 430px;
+  grid-row: 2;
+  min-height: 0;
+  border-radius: 16px 16px 0 0;
+  width: 100%;
+}
+
+.kinshima-page .kp-featured-person img {
+  object-position: center top;
 }
 
 .kinshima-page .kp-featured-crest {
-  height: 100px;
+  height: 126px;
   left: 50%;
   position: absolute;
-  top: -45px;
+  justify-self: center;
+  top: -24px;
   transform: translateX(-50%);
-  width: 110px;
+  width: 136px;
   z-index: 1;
 }
 
@@ -1120,24 +1506,50 @@
   object-fit: contain;
 }
 
-.kinshima-page .kp-featured-clans article > div {
-  background: #30292b;
-  bottom: 0;
-  left: 0;
-  padding: 14px 8px;
-  position: absolute;
+.kinshima-page .kp-featured-clans article > div:last-child {
+  background: var(--kinshima-blue);
+  border-radius: 0 0 16px 16px;
+  display: grid;
+  grid-row: 3;
+  min-width: 0;
+  padding: 13px 10px 15px;
+  place-content: center;
+  row-gap: 4px;
   width: 100%;
 }
 
 .kinshima-page .kp-featured-clans h3 {
+  color: #fff;
   font-size: 28px;
   line-height: 1;
+  overflow-wrap: anywhere;
 }
 
 .kinshima-page .kp-featured-clans p,
 .kinshima-page .kp-featured-clans a {
-  color: #fff;
+  color: #f5fbff;
   font-size: 16px;
+  line-height: 1.25;
+}
+
+.kinshima-page .kp-featured-clans p {
+  min-height: 40px;
+}
+
+.kinshima-page .kp-featured-clans .kp-featured-clan-link {
+  position: relative;
+  z-index: 1;
+}
+
+.kinshima-page .kp-featured-clans .kp-featured-clan-link::after {
+  content: "";
+  inset: 0;
+  position: absolute;
+}
+
+.kinshima-page .kp-featured-clans article:has(.kp-featured-clan-link:focus-visible) {
+  outline: 3px solid var(--kinshima-blue-bright);
+  outline-offset: 3px;
 }
 
 .kinshima-page .kp-heroes-clans > .kp-action {
@@ -1145,30 +1557,39 @@
 }
 
 .kinshima-page .kp-order-cards {
-  background: #f9e4e6;
+  background: #dceaf3;
   padding-bottom: 50px;
   text-align: center;
 }
 
 .kinshima-page .kp-order-banner {
   height: 580px;
-  margin-bottom: -80px;
+  margin-bottom: -130px;
   width: 100%;
 }
 
 .kinshima-page .kp-order-cards > div:last-of-type {
   display: grid;
-  gap: 26px;
+  gap: 28px;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  margin: 0 auto 28px;
+  margin: -168px auto -140px;
   max-width: 1200px;
+  padding: 0 24px;
+  position: relative;
+  z-index: 2;
 }
 
 .kinshima-page .kp-order-cards article {
   align-content: start;
+  background: rgb(255 255 255 / 96%);
+  border: 1px solid rgb(18 63 112 / 8%);
+  border-radius: 20px;
+  box-shadow: 0 18px 45px rgb(18 63 112 / 12%);
   display: grid;
+  grid-template-rows: 230px auto 1fr auto;
   justify-items: center;
-  padding: 0 6%;
+  min-height: 420px;
+  padding: 18px 26px 26px;
 }
 
 .kinshima-page .kp-order-mark {
@@ -1183,11 +1604,15 @@
 
 .kinshima-page .kp-order-cards h3 {
   font-size: 38px;
+  line-height: 1.05;
+  margin: 4px 0 10px;
 }
 
 .kinshima-page .kp-order-cards p {
   font-size: 17px;
   line-height: 1.35;
+  margin: 0;
+  max-width: 280px;
 }
 
 .kinshima-page .kp-order-cards article > a {
@@ -1195,9 +1620,15 @@
   margin-top: 14px;
 }
 
+.kinshima-page .kp-order-cards > .kp-action {
+  margin-top: 140px;
+  position: relative;
+  z-index: 3;
+}
+
 .kinshima-page .kp-herald-cta {
   align-items: center;
-  background: #e9cfd2;
+  background: #d7e7f4;
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -1498,19 +1929,36 @@
 }
 
 .kinshima-page .kp-order-list {
+  background: linear-gradient(180deg, #f8fbfd 0%, #edf5fa 34%, #dceaf5 68%, #f4f8fb 100%);
   display: grid;
-  gap: 100px;
-  padding: 70px 8%;
+  gap: 44px;
+  padding: 72px 8%;
 }
 
 .kinshima-page .kp-order-row {
   align-items: center;
+  border: 1px solid rgb(18 63 112 / 10%);
+  border-radius: 24px;
+  box-shadow: 0 18px 45px rgb(18 63 112 / 10%);
   display: grid;
   grid-template-columns: minmax(240px, 390px) 1fr;
   margin: auto;
   max-width: 1200px;
   min-height: 400px;
+  overflow: hidden;
   width: 100%;
+}
+
+.kinshima-page .kp-order-row.order-0 {
+  background: linear-gradient(135deg, #edf5fa 0%, #dceaf5 58%, #c8dff0 100%);
+}
+
+.kinshima-page .kp-order-row.order-1 {
+  background: linear-gradient(135deg, #c3daf0 0%, #dfedf7 52%, #f2f7fb 100%);
+}
+
+.kinshima-page .kp-order-row.order-2 {
+  background: linear-gradient(135deg, #eef6fa 0%, #d1e3f2 58%, #aecde3 100%);
 }
 
 .kinshima-page .kp-order-row.reverse {
@@ -1739,7 +2187,7 @@
 }
 
 .kinshima-page .kp-clan-leaders {
-  background: #e78c92;
+  background: #70a9d1;
   padding: 40px 6% 55px;
 }
 
@@ -1815,7 +2263,7 @@
 
 .kinshima-page .kp-route-cta {
   align-items: center;
-  background: #f7d8db;
+  background: #dbeaf5;
   display: flex;
   flex-direction: column;
   gap: 18px;
@@ -1891,7 +2339,7 @@
 }
 
 .kinshima-page .kp-2026-prologue > div:last-child {
-  background: #f8dfe1e8;
+  background: #dbe7f7e8;
   left: 0;
   padding: 44px 10%;
   position: absolute;
@@ -1953,7 +2401,7 @@
 }
 
 .kinshima-page .kp-2026-choices {
-  background: #f7e4e6;
+  background: #e1edf7;
   padding: 50px 5%;
   text-align: center;
 }
@@ -2016,26 +2464,38 @@
 
 /* Medallion and Heralds */
 .kinshima-page .kp-medallion-hero {
-  height: 700px;
+  height: clamp(580px, 52vw, 700px);
 }
 
 .kinshima-page .kp-medallion-hero::after,
 .kinshima-page .kp-heralds-hero::after,
 .kinshima-page .kp-company-hero::after {
-  background: #10182447;
   content: "";
   inset: 0;
   position: absolute;
 }
 
+.kinshima-page .kp-medallion-hero::after {
+  background:
+    linear-gradient(180deg, #071b3659 0%, #071b3614 48%, #0b2d52a6 100%);
+  background-blend-mode: multiply;
+}
+
+.kinshima-page .kp-medallion-hero-image {
+  transition: transform 900ms ease;
+}
+
 .kinshima-page .kp-medallion-hero h1 {
   color: #fff;
-  font-size: clamp(44px, 5.5vw, 78px);
+  font-size: clamp(42px, 5.5vw, 76px);
+  letter-spacing: 0.01em;
+  line-height: 1;
   left: 50%;
+  max-width: 900px;
   position: absolute;
   text-align: center;
-  text-shadow: 0 2px 5px #0008;
-  top: 48%;
+  text-shadow: 0 4px 18px #071b36a6;
+  top: 62%;
   transform: translate(-50%, -50%);
   width: 90%;
   z-index: 1;
@@ -2045,7 +2505,7 @@
   height: 420px;
   left: 50%;
   position: absolute;
-  top: 35px;
+  top: clamp(28px, 4vw, 48px);
   transform: translateX(-50%);
   width: 330px;
   z-index: 1;
@@ -2056,16 +2516,55 @@
 }
 
 .kinshima-page .kp-medallion-intro {
-  background: #ececec;
-  margin: auto;
-  max-width: 1100px;
-  padding: 45px 7%;
+  background:
+    radial-gradient(circle at 12% 0%, #ffffffbd 0, transparent 32rem),
+    linear-gradient(135deg, #dfeaf3 0%, #bcd0e5 100%);
+  border-block: 1px solid #a9bfd4;
+  display: grid;
+  gap: clamp(20px, 3vw, 38px);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0 auto;
+  max-width: none;
+  padding: clamp(38px, 5vw, 64px) clamp(24px, 7vw, 92px);
+  position: relative;
 }
 
-.kinshima-page .kp-medallion-intro p {
-  font-size: 20px;
-  line-height: 1.5;
-  margin-bottom: 16px;
+.kinshima-page .kp-medallion-intro::before {
+  background: linear-gradient(90deg, transparent, #ffffff, transparent);
+  content: "";
+  height: 1px;
+  left: 8%;
+  position: absolute;
+  right: 8%;
+  top: 0;
+}
+
+.kinshima-page .kp-medallion-intro article {
+  background: #ffffff70;
+  border: 1px solid #ffffffa6;
+  border-radius: 16px;
+  box-shadow: 0 14px 34px #2f57721a;
+  overflow: clip;
+}
+
+.kinshima-page .kp-medallion-intro-image {
+  aspect-ratio: 16 / 7;
+  width: 100%;
+}
+
+.kinshima-page .kp-medallion-intro-image img {
+  object-position: center 30%;
+}
+
+.kinshima-page .kp-medallion-intro article p {
+  font-size: clamp(16px, 1.35vw, 20px);
+  line-height: 1.55;
+  margin: 0;
+  padding: clamp(20px, 2.5vw, 32px);
+}
+
+.kinshima-page .kp-medallion-intro article:first-child p {
+  margin-inline: 0;
 }
 
 .kinshima-page .kp-medallion-group {
@@ -2081,10 +2580,59 @@
   max-width: 1360px;
 }
 
+.kinshima-page .kp-medallion-masters > div:last-child {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-width: 900px;
+}
+
+.kinshima-page .kp-medallion-masters article {
+  background: linear-gradient(145deg, #294d71, #183b60);
+  border: 1px solid #ffffff1f;
+  border-radius: 18px;
+  box-shadow: 0 14px 34px #183b6026;
+  color: #fff;
+  overflow: clip;
+}
+
+.kinshima-page .kp-medallion-masters article h3,
+.kinshima-page .kp-medallion-masters article p,
+.kinshima-page .kp-medallion-masters article small {
+  color: #fff;
+}
+
+.kinshima-page .kp-medallion-masters article h3 {
+  padding: 10px 12px 2px;
+}
+
+.kinshima-page .kp-medallion-masters article p,
+.kinshima-page .kp-medallion-masters article small {
+  display: block;
+  padding-inline: 12px;
+}
+
+.kinshima-page .kp-medallion-masters article small {
+  padding-bottom: 16px;
+}
+
 .kinshima-page .kp-medallion-group article {
   background: #fff;
   padding-bottom: 13px;
   text-align: center;
+}
+
+.kinshima-page .kp-medallion-masters {
+  background:
+    radial-gradient(circle at 50% 0, #ffffffb8, transparent 28rem),
+    linear-gradient(135deg, #e5eef7, #b9cce0);
+}
+
+.kinshima-page .kp-medallion-masters article,
+.kinshima-page .kp-medallion-masters article:where(*) {
+  background: linear-gradient(145deg, #315b82, #1a405f);
+  border: 1px solid #c8daf0;
+  border-radius: 18px;
+  color: #fff;
+  overflow: clip;
 }
 
 .kinshima-page .kp-medallion-person {
@@ -2104,30 +2652,123 @@
   line-height: 1.3;
 }
 
+.kinshima-page .kp-medallion-elders article {
+  --elder-accent: #aeb4bd;
+  border-radius: 14px 14px 0 0;
+  overflow: clip;
+}
+
+.kinshima-page .kp-medallion-elders article:nth-child(1) {
+  --elder-accent: #aeb4bd;
+  background: #d7dade;
+}
+
+.kinshima-page .kp-medallion-elders article:nth-child(2) {
+  --elder-accent: #d7ad4c;
+  background: #ead39e;
+}
+
+.kinshima-page .kp-medallion-elders article:nth-child(3) {
+  --elder-accent: #85b85e;
+  background: #b9d39f;
+}
+
+.kinshima-page .kp-medallion-elders article:nth-child(4) {
+  --elder-accent: #8ebfe2;
+  background: #bfd8ed;
+}
+
+.kinshima-page .kp-medallion-elders article:nth-child(5) {
+  --elder-accent: #e77b84;
+  background: #f0b1b7;
+}
+
+@supports (background: color-mix(in srgb, white, black)) {
+  .kinshima-page .kp-medallion-elders article {
+    background: color-mix(in srgb, var(--elder-accent) 72%, white);
+  }
+}
+
 .kinshima-page .kp-medallion-warriors {
-  background: #f7e0e2;
-  padding: 48px 4%;
+  background:
+    radial-gradient(circle at 50% 0, #ffffffb8, transparent 34rem),
+    #edf3f7;
+  padding: clamp(42px, 6vw, 78px) 4%;
 }
 
 .kinshima-page .kp-medallion-warriors > div:last-child {
+  --warrior-gap: clamp(12px, 1.8vw, 24px);
+  --warrior-ink: #18232b;
+  container-type: inline-size;
   display: grid;
-  gap: 14px;
+  gap: var(--warrior-gap);
+  grid-auto-flow: column;
+  grid-template-rows: repeat(4, auto);
   grid-template-columns: repeat(5, minmax(0, 1fr));
   margin: auto;
-  max-width: 1360px;
+  max-width: 1280px;
 }
 
 .kinshima-page .kp-medallion-warriors article {
-  background: #fff;
-  font-size: 17px;
-  padding-bottom: 10px;
-  text-align: center;
+  --warrior-accent: #87909a;
+  background: var(--warrior-accent);
+  border: 1px solid var(--warrior-accent);
+  color: var(--warrior-ink);
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-width: 0;
+  overflow: clip;
+  border-radius: 14px 14px 0 0;
+  text-align: left;
+  transition: box-shadow 180ms ease, transform 180ms ease;
+}
+
+@supports (background: color-mix(in srgb, white, black)) {
+  .kinshima-page .kp-medallion-warriors article {
+    background: color-mix(in srgb, var(--warrior-accent) 72%, white);
+    border-color: color-mix(in srgb, var(--warrior-accent) 78%, #fff);
+  }
+}
+
+.kinshima-page .kp-medallion-warriors article:hover {
+  box-shadow: 0 12px 24px #18232b22;
+  transform: translateY(-3px);
+}
+
+.kinshima-page .kp-medallion-warriors article:nth-child(n + 5):nth-child(-n + 8) {
+  --warrior-accent: #d7ad4c;
+}
+
+.kinshima-page .kp-medallion-warriors article:nth-child(n + 9):nth-child(-n + 12) {
+  --warrior-accent: #85b85e;
+}
+
+.kinshima-page .kp-medallion-warriors article:nth-child(n + 13):nth-child(-n + 16) {
+  --warrior-accent: #8ebfe2;
+}
+
+.kinshima-page .kp-medallion-warriors article:nth-child(n + 17) {
+  --warrior-accent: #e77b84;
 }
 
 .kinshima-page .kp-warrior-photo {
-  aspect-ratio: 0.93;
-  margin-bottom: 6px;
+  aspect-ratio: 0.94;
+  background: #101820;
   width: 100%;
+}
+
+.kinshima-page .kp-medallion-warriors article p {
+  align-self: center;
+  font-size: clamp(14px, 1.25cqi, 18px);
+  font-weight: 600;
+  line-height: 1.25;
+  padding: 12px 13px 15px;
+  text-wrap: balance;
+}
+
+.kinshima-page .kp-medallion-warriors article p strong {
+  display: block;
+  font-weight: 700;
 }
 
 .kinshima-page .kp-heralds-hero {
@@ -2239,7 +2880,7 @@
 
 .kinshima-page .kp-heralds-cta {
   align-items: center;
-  background: #ead0d3;
+  background: #d5e6f3;
   display: grid;
   gap: 40px;
   grid-template-columns: 1fr 1fr;
@@ -2351,10 +2992,11 @@
 }
 
 .kinshima-page .kp-company-hero > div:last-child {
+  background: linear-gradient(180deg, transparent 0%, rgb(7 28 57 / 78%) 25%, rgb(7 28 57 / 92%) 100%);
   bottom: 0;
   color: #fff;
   left: 0;
-  padding: 30px 8%;
+  padding: 90px 8% 30px;
   position: absolute;
   text-align: center;
   width: 100%;
@@ -2362,6 +3004,7 @@
 }
 
 .kinshima-page .kp-company-hero h1 {
+  color: #fff;
   font-size: clamp(46px, 5.4vw, 78px);
   line-height: 1.05;
 }
@@ -2407,9 +3050,10 @@
 
 .kinshima-page .kp-company-story {
   align-items: center;
-  background: #fae8e9;
+  background: #e1edf7;
   display: flex;
   flex-direction: column;
+  gap: 24px;
   padding: 40px 9%;
   text-align: center;
 }
@@ -2422,18 +3066,16 @@
 
 .kinshima-page .kp-company-story-image {
   height: 380px;
-  margin-top: 24px;
   max-width: 1100px;
   width: 100%;
 }
 
 .kinshima-page .kp-company-story h2 {
   font-size: 40px;
-  margin-top: 28px;
 }
 
 .kinshima-page .kp-company-gallery {
-  background: #f5dadd;
+  background: #d9e9f5;
   padding: 52px 4%;
 }
 
@@ -2529,7 +3171,7 @@
 }
 
 .kinshima-page .kp-hugen-gallery {
-  background: #f7dfe2;
+  background: #ddeaf7;
   padding: 45px 4%;
 }
 
@@ -2542,21 +3184,32 @@
 
   .kinshima-page .kp-medallion-warriors > div:last-child {
     grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-auto-flow: row;
+    grid-template-rows: none;
   }
 
   .kinshima-page .kp-featured-clans {
-    grid-template-columns: repeat(5, minmax(180px, 1fr));
+    grid-template-columns: repeat(5, minmax(190px, 1fr));
     overflow-x: auto;
+    padding-bottom: 8px;
   }
 }
 
 @media (max-width: 760px) {
   .kinshima-page .kp-section-title h2 { font-size: 39px; }
   .kinshima-page .kp-action { font-size: 13px; letter-spacing: 0.08em; padding: 8px 18px; }
-  .kinshima-page .kp-projects-hero { min-height: 560px; }
-  .kinshima-page .kp-projects-hero-image { height: 480px; }
-  .kinshima-page .kp-project-hero-logos { gap: 8px; height: 110px; top: 24px; width: 94%; }
-  .kinshima-page .kp-projects-intro { padding: 18px; top: 175px; width: 92%; }
+  .kinshima-page .kp-projects-hero { min-height: 680px; }
+  .kinshima-page .kp-projects-hero-image { height: 640px; }
+  .kinshima-page .kp-project-hero-logos {
+    column-gap: 12px;
+    row-gap: 6px;
+    top: 0;
+    width: 100%;
+    padding: 12px 10px 20px;
+  }
+  .kinshima-page .kp-project-logo { height: 110px; max-width: 170px; }
+  .kinshima-page .kp-project-logo:nth-child(1) { height: 120px; max-width: 210px; margin-top: -6px; }
+  .kinshima-page .kp-projects-intro { padding: 18px; top: 280px; width: 92%; }
   .kinshima-page .kp-projects-intro h1 { font-size: 42px; }
   .kinshima-page .kp-projects-intro p { font-size: 15px; }
   .kinshima-page .kp-project-list { padding: 0 16px; }
@@ -2631,25 +3284,28 @@
   .kinshima-page .kp-enthusiasm > div:last-child { padding: 18px; }
   .kinshima-page .kp-enthusiasm h2 { font-size: 30px; }
   .kinshima-page .kp-league-hero { height: 480px; margin-bottom: 0; }
-  .kinshima-page .kp-league-wordmark { height: 145px; top: 180px; width: 72vw; }
-  .kinshima-page .kp-league-hero > p { font-size: 21px; padding: 18px; }
-  .kinshima-page .kp-league-join { height: 300px; margin-bottom: 40px; }
+  .kinshima-page .kp-league-wordmark { bottom: 116px; height: 190px; padding: 10px 14px; width: 82vw; }
+  .kinshima-page .kp-league-hero > p { font-size: 21px; padding: 55px 16px 20px; }
+  .kinshima-page .kp-league-join { height: 300px; margin-bottom: 0; }
   .kinshima-page .kp-league-intro { height: 560px; }
-  .kinshima-page .kp-league-intro-wordmark { height: 220px; top: 45px; width: 82vw; }
-  .kinshima-page .kp-league-intro > div:last-child { padding: 18px; }
-  .kinshima-page .kp-league-intro h1 { font-size: 42px; }
-  .kinshima-page .kp-league-intro p { font-size: 16px; }
+  .kinshima-page .kp-league-intro-wordmark { height: 170px; margin: -12px auto -2px; width: 320px; }
+  .kinshima-page .kp-league-intro > div:last-child { border-radius: 16px; padding: 16px 18px 18px; width: calc(100% - 24px); }
+  .kinshima-page .kp-league-intro h1 { font-size: 42px; line-height: 1; margin-bottom: 8px; }
+  .kinshima-page .kp-league-intro p { font-size: 15px; line-height: 1.38; margin-bottom: 6px; }
   .kinshima-page .kp-league-transition-banner { height: 220px; }
   .kinshima-page .kp-league-transition-banner-wide { height: 270px; margin-top: 24px; }
   .kinshima-page .kp-foundation-cards,
   .kinshima-page .kp-order-cards > div:last-of-type,
   .kinshima-page .kp-2026-foundations > div { grid-template-columns: 1fr; }
-  .kinshima-page .kp-foundation-cards article { min-height: 330px; }
+  .kinshima-page .kp-foundation-cards article { gap: 12px; grid-template-rows: 138px auto 1fr auto; min-height: 360px; }
+  .kinshima-page .kp-foundation-mark { height: 138px; width: 190px; }
   .kinshima-page .kp-featured-clans { grid-template-columns: repeat(5, 170px); }
-  .kinshima-page .kp-featured-clans article { min-height: 390px; }
-  .kinshima-page .kp-featured-person { height: 300px; }
-  .kinshima-page .kp-order-banner { height: 300px; margin-bottom: -35px; }
-  .kinshima-page .kp-order-cards article { padding: 18px 24px; }
+  .kinshima-page .kp-featured-clans article { grid-template-rows: 44px 250px 112px; }
+  .kinshima-page .kp-featured-crest { height: 96px; top: -18px; width: 112px; }
+  .kinshima-page .kp-order-cards > div:last-of-type { margin: -136px auto -96px; padding: 0 18px; }
+  .kinshima-page .kp-order-cards > .kp-action { margin-top: 96px; }
+  .kinshima-page .kp-order-banner { height: 300px; margin-bottom: -55px; }
+  .kinshima-page .kp-order-cards article { grid-template-rows: 180px auto 1fr auto; min-height: 340px; padding: 18px 24px; }
   .kinshima-page .kp-order-mark { height: 180px; }
   .kinshima-page .kp-herald-cta { min-height: 310px; }
   .kinshima-page .kp-clans-hero { align-items: end; height: 700px; padding-bottom: 16px; }
@@ -2716,11 +3372,18 @@
   .kinshima-page .kp-medallion-hero { height: 500px; }
   .kinshima-page .kp-medallion-mark { height: 290px; top: 30px; width: 240px; }
   .kinshima-page .kp-medallion-hero h1 { font-size: 38px; top: 50%; }
-  .kinshima-page .kp-medallion-intro { padding: 25px 20px; }
-  .kinshima-page .kp-medallion-intro p { font-size: 16px; }
+  .kinshima-page .kp-medallion-intro {
+    gap: 14px;
+    grid-template-columns: 1fr;
+    padding: 25px 20px;
+  }
+  .kinshima-page .kp-medallion-intro p { font-size: 16px; padding: 18px; }
   .kinshima-page .kp-medallion-group > div:last-child,
   .kinshima-page .kp-elders > div { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .kinshima-page .kp-medallion-warriors > div:last-child { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .kinshima-page .kp-medallion-warriors > div:last-child {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-flow: row;
+  }
   .kinshima-page .kp-heralds-hero { height: 660px; padding: 20px; }
   .kinshima-page .kp-heralds-hero h1 { font-size: 43px; }
   .kinshima-page .kp-heralds-hero p { font-size: 17px; }
@@ -2765,4 +3428,42 @@
   .kinshima-page .kp-hugen-howto { height: 240px; }
   .kinshima-page .kp-hugen-rules h2 { font-size: 34px; }
   .kinshima-page .kp-hugen-rules a { font-size: 20px; }
+}
+
+/* Shared layout polish: keep the art direction, but let content determine
+   spacing and alignment instead of making every section depend on fixed widths. */
+.kinshima-page .subpage-main {
+  container-type: inline-size;
+}
+
+.kinshima-page .subpage-main > section {
+  scroll-margin-top: 110px;
+}
+
+.kinshima-page :where(.kp-project-list, .kp-team-grid, .kp-bio-list, .kp-pillar-details, .kp-clan-list) {
+  min-inline-size: 0;
+}
+
+.kinshima-page :where(.kp-project-copy, .kp-team-card, .kp-bio-row > div, .kp-clan-row > div) {
+  min-inline-size: 0;
+}
+
+.kinshima-page :where(.kp-project-copy p, .kp-bio-row p, .kp-clan-row p, .kp-section-title h2) {
+  text-wrap: pretty;
+}
+
+.kinshima-page :where(.kp-project-row, .kp-bio-row, .kp-clan-row, .kp-order-row, .kp-indraz-row) {
+  scroll-margin-block-start: 7rem;
+}
+
+.kinshima-page :where(.kp-action, .project-link) {
+  min-block-size: 44px;
+}
+
+@container (inline-size < 760px) {
+  .kinshima-page .kp-project-list,
+  .kinshima-page .kp-team-section,
+  .kinshima-page .kp-clan-list {
+    padding-inline: var(--kinshima-gutter, 18px);
+  }
 }

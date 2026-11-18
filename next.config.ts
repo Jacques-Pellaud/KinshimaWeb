@@ -5,7 +5,7 @@ const basePath =
   (process.env.NODE_ENV === "production" ? "/KinshimaWeb" : "");
 
 const nextConfig: NextConfig = {
-  output: "export",
+  output: process.env.NODE_ENV === "production" ? "export" : undefined,
   trailingSlash: true,
   basePath: basePath === "" ? undefined : basePath,
   images: {

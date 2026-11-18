@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useRef } from "react";
 import { KinshimaImage } from "./KinshimaImage";
 import pageImageManifest from "./page-image-manifest.json";
 import { KinshimaLink } from "./KinshimaChrome";
@@ -321,6 +324,39 @@ function ClanProfile({ route, page }: { route: string; page: ClanPage }) {
 }
 
 function LeagueLanding({ route }: { route: string }) {
+  const joinRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const section = joinRef.current;
+    if (!section || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const image = section.querySelector<HTMLImageElement>("img");
+    if (!image) return;
+
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const rect = section.getBoundingClientRect();
+      const progress = Math.max(0, Math.min(1,
+        (window.innerHeight - rect.top) / (window.innerHeight + rect.height)
+      ));
+      const offset = (progress - 0.5) * -100;
+      image.style.transform = `translate3d(0, ${offset}px, 0) scale(1.12)`;
+    };
+    const onScroll = () => {
+      if (!frame) frame = window.requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
+  }, []);
+
   const featured = [
     { name: "Ramon", title: "Typhon-d-O-Tsuyujin", clan: "O-Tsuyujin", personImage: 21, crest: 22 },
     { name: "Audrey", title: "Conquérante-des-falaises", clan: "Seklan", personImage: 23, crest: 24 },
@@ -336,13 +372,13 @@ function LeagueLanding({ route }: { route: string }) {
   return (
     <div className="kp-league-page">
       <section className="kp-league-hero"><Picture route={route} index={4} className="kp-league-hero-photo" priority /><Picture route={route} index={5} className="kp-league-wordmark" decorative /><p>« À Kinshima, vous ne vivez pas seulement une aventure : vous écrivez votre légende. »</p></section>
-      <section className="kp-league-join"><Picture route={route} index={6} className="kp-league-join-photo" decorative /><Action href="/la-ligue-kinshima/liguekinshima2026">Rejoindre l’aventure</Action></section>
-      <section className="kp-league-intro"><Picture route={route} index={7} className="kp-league-intro-photo" decorative /><Picture route={route} index={8} className="kp-league-intro-wordmark" decorative /><div><h1>Bienvenue à</h1><p>Rejoignez la Ligue Kinshima : un camp où arts martiaux, camaraderie et quêtes épiques s’unissent pour forger des héros et écrire l’histoire d’Indraz.</p><p>Des cours d&apos;arts martiaux exigeants, des histoires de qualité dont vous décidez l&apos;issue et des dizaines d&apos;amitiés à tisser, voici ce qui vous attend en devenant un héros de la Ligue !</p><Action href="#fondations">↓ Devenir un Héro ↓</Action></div></section>
+      <section ref={joinRef} className="kp-league-join"><Picture route={route} index={6} className="kp-league-join-photo" decorative /><Action href="/la-ligue-kinshima/liguekinshima2026">Rejoindre l’aventure</Action></section>
+      <section className="kp-league-intro"><Picture route={route} index={7} className="kp-league-intro-photo" decorative /><div><h1>Bienvenue à</h1><Picture route={route} index={8} className="kp-league-intro-wordmark" decorative /><p>Rejoignez la Ligue Kinshima : un camp où arts martiaux, camaraderie et quêtes épiques s’unissent pour forger des héros et écrire l’histoire d’Indraz.</p><p>Des cours d&apos;arts martiaux exigeants, des histoires de qualité dont vous décidez l&apos;issue et des dizaines d&apos;amitiés à tisser : voici ce qui vous attend en devenant un héros de la Ligue !</p><Action href="#fondations">Devenir un héros</Action></div></section>
       <AmnCarousel />
       <Picture route={route} index={10} className="kp-league-transition-banner kp-league-transition-banner-wide" decorative />
       <section className="kp-foundations" id="fondations"><SectionTitle eyebrow="Les Fondations de la Ligue">Les cinq Clans</SectionTitle><p>Chaque clan unit les participants de la Ligue dans une même Voie martiale qui leur correspond.</p><div className="kp-foundation-cards">{[["Les cinq Clans", "Chaque clan unit les participants de la Ligue dans une même Voie martiale qui leur correspond.", "/la-ligue-kinshima/les-clans", 11], ["L'univers", "Les guerriers légendaires devenus gardiens du fonctionnement de la Ligue.", "/la-ligue-kinshima/les-hérauts", 16], ["Les trois Ordres", "Face aux ennemis de la Ligue, les Ordres conduisent les guerriers Kinshima à la victoire.", "/la-ligue-kinshima/les-ordres", 17]].map(([title, body, href, image]) => <article key={String(title)}><Picture route={route} index={Number(image)} className="kp-foundation-mark" decorative /><h3>{title}</h3><p>{body}</p><Action href={String(href)}>{title === "L'univers" ? "Rencontre les Hérauts" : title === "Les trois Ordres" ? "Découvre les ordres" : "Choisis ton clan"}</Action></article>)}</div></section>
       <Picture route={route} index={20} className="kp-full-banner" decorative />
-      <section className="kp-heroes-clans"><SectionTitle>Rejoins les héros de la Ligue et leur clan</SectionTitle><div className="kp-featured-clans">{featured.map((hero) => <article key={hero.clan}><Picture route={route} index={hero.personImage} className="kp-featured-person" /><Picture route={route} index={hero.crest} className="kp-featured-crest" decorative /><div><h3>{hero.name}</h3><p>{hero.title}</p><KinshimaLink href={`/la-ligue-kinshima/les-clans/${hero.clan.toLowerCase()}`}>{hero.clan}</KinshimaLink></div></article>)}</div><Action href="/la-ligue-kinshima/les-clans">Découvre et choisis ton clan !</Action></section>
+      <section className="kp-heroes-clans"><SectionTitle>Rejoins les héros de la Ligue et leur clan</SectionTitle><div className="kp-featured-clans">{featured.map((hero) => <article key={hero.clan}><Picture route={route} index={hero.crest} className="kp-featured-crest" decorative /><Picture route={route} index={hero.personImage} className="kp-featured-person" /><div><h3>{hero.name}</h3><p>{hero.title}</p><KinshimaLink className="kp-featured-clan-link" href={`/la-ligue-kinshima/les-clans/${hero.clan.toLowerCase()}`}>{hero.clan}</KinshimaLink></div></article>)}</div><Action href="/la-ligue-kinshima/les-clans">Découvre et choisis ton clan !</Action></section>
       <section className="kp-order-cards"><Picture route={route} index={32} className="kp-order-banner" decorative /><SectionTitle>Les trois Ordres</SectionTitle><div>{orders.map((order) => <article key={order.title}><Picture route={route} index={order.image} className="kp-order-mark" decorative /><h3>{order.title}</h3><p>{order.body}</p><KinshimaLink href={order.href}>En savoir plus</KinshimaLink></article>)}</div><Action href="/la-ligue-kinshima/les-ordres">Découvre les Ordres de la Ligue</Action></section>
       <section className="kp-herald-cta"><Picture route={route} index={36} className="kp-herald-mark" decorative /><Action href="/la-ligue-kinshima/les-hérauts">Rencontre les Hérauts de la Ligue</Action></section>
     </div>

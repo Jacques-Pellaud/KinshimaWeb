@@ -15,7 +15,7 @@
 }
 
 .kinshima-page {
-  --kinshima-pink: #f8e3e5;
+  --kinshima-blue-pale: #dceaf3;
   --kinshima-blue: #063eaa;
   --kinshima-blue-bright: #047ad2;
   --kinshima-ink: #252525;
@@ -396,7 +396,7 @@
 
 .nav-dropdown a:hover,
 .nav-dropdown a:focus-visible {
-  background: #f4eff0;
+  background: #edf4f8;
 }
 
 .nav-group:hover .nav-dropdown,
@@ -504,7 +504,7 @@
 
 .intro-invitation {
   align-items: center;
-  background: #f1d8da;
+  background: #d3e5f3;
   display: flex;
   justify-content: center;
   padding: 30px 45px;
@@ -727,7 +727,7 @@
 
 .odyssey-heading {
   align-items: end;
-  background: var(--kinshima-pink);
+  background: var(--kinshima-blue-pale);
   display: flex;
   height: 165px;
   justify-content: center;
@@ -821,7 +821,7 @@
 
 .league-text {
   align-content: center;
-  background: #fae8e9;
+  background: #e1edf7;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -993,7 +993,7 @@
 
 .company-copy {
   align-items: center;
-  background: #fae8e9;
+  background: #e1edf7;
   display: flex;
   flex-direction: column;
   height: 441px;
@@ -1354,7 +1354,7 @@
   }
 
   .nav-dropdown {
-    background: #f7f3f3;
+    background: #edf4f8;
     box-shadow: none;
     flex-basis: 100%;
     min-width: 0;
@@ -1798,7 +1798,7 @@
 
 /* Shared visual system */
 .kinshima-page {
-  --kinshima-pink: #f4e4df;
+  --kinshima-blue-pale: #dceaf3;
   --kinshima-blue: #123f70;
   --kinshima-blue-bright: #1d78bd;
   --kinshima-ink: #18232b;
@@ -1887,7 +1887,7 @@
 .nav-group > a:hover,
 .main-nav > a:focus-visible,
 .nav-group > a:focus-visible {
-  background: var(--kinshima-pink);
+  background: var(--kinshima-blue-pale);
   color: var(--kinshima-blue);
 }
 

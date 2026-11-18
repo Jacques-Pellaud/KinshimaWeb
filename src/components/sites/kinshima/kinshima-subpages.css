@@ -299,7 +299,7 @@
 
 .kinshima-page .kp-quote-feature {
   align-items: stretch;
-  background: #ecd1d3;
+  background: #d5e6f3;
   display: grid;
   grid-template-columns: 1fr minmax(300px, 430px) 1fr;
   min-height: 664px;
@@ -313,7 +313,7 @@
 
 .kinshima-page .kp-quote-feature blockquote {
   align-self: center;
-  background: #fae8e9;
+  background: #e1edf7;
   font-size: 27px;
   line-height: 1.35;
   padding: 35px 30px;
@@ -441,7 +441,7 @@
 
 .kinshima-page .kp-project-footer-logo {
   align-items: center;
-  background: #e7c4c7;
+  background: #c9dfef;
   display: flex;
   justify-content: center;
   padding: 24px;
@@ -680,7 +680,7 @@
 }
 
 .kinshima-page .kp-clan-slider-overlay {
-  background: linear-gradient(135deg, rgb(244 228 223 / 70%), rgb(255 255 255 / 20%));
+  background: linear-gradient(135deg, rgb(220 234 243 / 70%), rgb(255 255 255 / 20%));
 }
 
 .kinshima-page .kp-clan-slider-title {
@@ -782,7 +782,7 @@
 
 .kinshima-page .kp-narrative-callout {
   align-items: center;
-  background: #fae8e9;
+  background: #e1edf7;
   display: grid;
   grid-template-columns: 1fr 1fr;
   min-height: 385px;
@@ -1030,7 +1030,7 @@
 }
 
 .kinshima-page .kp-pillars-section {
-  background: #f9e7e9;
+  background: #e1edf7;
   padding: 60px 4% 70px;
 }
 
@@ -1155,7 +1155,7 @@
 .kinshima-page .kp-confidence-section article {
   align-items: center;
   aspect-ratio: 1;
-  background: radial-gradient(circle at 40% 40%, #f8d3cc, #dd9c91);
+  background: radial-gradient(circle at 40% 40%, #d8eaf7, #88b4d2);
   border-radius: 50%;
   display: flex;
   font-size: 29px;
@@ -1229,9 +1229,9 @@
 
 /* League, clans and orders */
 .kinshima-page .kp-league-hero {
-  background: #fae4e6;
+  background: #e1edf7;
   height: 895px;
-  margin-bottom: 93px;
+  margin-bottom: 0;
   position: relative;
 }
 
@@ -1240,12 +1240,21 @@
 }
 
 .kinshima-page .kp-league-wordmark {
-  height: 250px;
+  background: radial-gradient(
+    ellipse at center,
+    rgb(255 255 255 / 24%) 0%,
+    rgb(255 255 255 / 18%) 48%,
+    rgb(255 255 255 / 8%) 68%,
+    transparent 82%
+  );
+  bottom: 130px;
+  height: 300px;
   left: 50%;
+  padding: 18px 28px;
   position: absolute;
-  top: 327px;
   transform: translateX(-50%);
-  width: min(560px, 48vw);
+  width: min(680px, 58vw);
+  z-index: 2;
 }
 
 .kinshima-page .kp-league-wordmark img {
@@ -1253,25 +1262,38 @@
 }
 
 .kinshima-page .kp-league-hero > p {
-  background: #fae4e6e8;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgb(7 28 57 / 78%) 25%,
+    rgb(7 28 57 / 92%) 100%
+  );
   bottom: 0;
+  color: #fff;
   font-size: 32px;
   left: 0;
   line-height: 1.25;
-  padding: 25px 12%;
+  padding: 90px 8% 30px;
   position: absolute;
   text-align: center;
   width: 100%;
+  z-index: 1;
 }
 
 .kinshima-page .kp-league-join {
   height: 855px;
-  margin-bottom: 301px;
+  margin-bottom: 0;
   position: relative;
 }
 
 .kinshima-page .kp-league-join-photo {
   height: 100%;
+  overflow: hidden;
+}
+
+.kinshima-page .kp-league-join-photo img {
+  transition: none;
+  will-change: transform;
 }
 
 .kinshima-page .kp-league-join::after {
@@ -1298,14 +1320,19 @@
   height: 100%;
 }
 
-.kinshima-page .kp-league-intro-wordmark {
-  height: 414px;
-  left: 50%;
+.kinshima-page .kp-league-intro-photo::after {
+  background: linear-gradient(180deg, rgb(9 29 48 / 8%) 0%, rgb(9 29 48 / 12%) 38%, rgb(9 29 48 / 42%) 100%);
+  content: "";
+  inset: 0;
+  pointer-events: none;
   position: absolute;
-  top: 163px;
-  transform: translateX(-50%);
-  width: min(711px, 56vw);
   z-index: 1;
+}
+
+.kinshima-page .kp-league-intro-wordmark {
+  height: 250px;
+  margin: -18px auto 0;
+  width: min(520px, 96%);
 }
 
 .kinshima-page .kp-league-intro-wordmark img {
@@ -1313,26 +1340,37 @@
 }
 
 .kinshima-page .kp-league-intro > div:last-child {
-  background: #ffffffdf;
-  bottom: 0;
-  left: 0;
-  padding: 28px 10%;
+  backdrop-filter: blur(12px);
+  background: rgb(255 255 255 / 94%);
+  border: 1px solid rgb(255 255 255 / 78%);
+  border-radius: 22px;
+  box-shadow: 0 22px 55px rgb(9 29 48 / 18%);
+  left: 50%;
+  max-width: 860px;
+  padding: 24px 48px 28px;
   position: absolute;
   text-align: center;
-  width: 100%;
-  z-index: 2;
+  top: 0;
+  transform: translate(-50%, -50%);
+  width: calc(100% - 48px);
+  z-index: 3;
 }
 
 .kinshima-page .kp-league-intro h1 {
-  font-size: clamp(58px, 6.3vw, 90px);
-  margin-bottom: 8px;
+  font-size: clamp(48px, 5.2vw, 76px);
+  line-height: 1;
+  margin-bottom: 10px;
 }
 
 .kinshima-page .kp-league-intro p {
-  font-size: 20px;
-  line-height: 1.35;
-  margin: 0 auto 9px;
-  max-width: 850px;
+  font-size: 18px;
+  line-height: 1.45;
+  margin: 0 auto 7px;
+  max-width: 760px;
+}
+
+.kinshima-page .kp-league-intro .kp-action {
+  margin-top: 8px;
 }
 
 .kinshima-page .kp-league-transition-banner {
@@ -1350,7 +1388,7 @@
 }
 
 .kinshima-page .kp-foundations {
-  background: #fae8e9;
+  background: #e1edf7;
   padding: 58px 4% 66px;
   text-align: center;
 }
@@ -1375,16 +1413,18 @@
 
 .kinshima-page .kp-foundation-cards article {
   align-content: start;
-  background: #eed6d8;
+  background: #d2e4f3;
   display: grid;
+  gap: 16px;
+  grid-template-rows: 180px auto 1fr auto;
   justify-items: center;
   min-height: 440px;
   padding: 26px 8%;
 }
 
 .kinshima-page .kp-foundation-mark {
-  height: 165px;
-  width: 200px;
+  height: 180px;
+  width: 230px;
 }
 
 .kinshima-page .kp-foundation-mark img {
@@ -1394,11 +1434,14 @@
 .kinshima-page .kp-foundation-cards h3 {
   font-size: 34px;
   line-height: 1.1;
+  margin: 0;
 }
 
 .kinshima-page .kp-foundation-cards p {
   font-size: 17px;
   line-height: 1.35;
+  margin: 0;
+  max-width: 290px;
 }
 
 .kinshima-page .kp-foundation-cards .kp-action {
@@ -1406,36 +1449,56 @@
 }
 
 .kinshima-page .kp-heroes-clans {
-  background: #f7e3e5;
+  background: #e7f0f6;
   padding: 62px 3% 72px;
   text-align: center;
 }
 
 .kinshima-page .kp-featured-clans {
   display: grid;
+  gap: 16px;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   margin: auto;
   max-width: 1380px;
 }
 
 .kinshima-page .kp-featured-clans article {
-  background: #262126;
-  color: #fff;
-  min-height: 540px;
+  background: #dceaf3;
+  border: 1px solid rgb(24 35 43 / 10%);
+  color: var(--kinshima-ink);
+  display: grid;
+  grid-template-rows: 54px minmax(320px, 1fr) 116px;
+  min-width: 0;
+  overflow: visible;
   position: relative;
+  box-shadow: 0 12px 28px rgb(24 35 43 / 9%);
+  transition: box-shadow 160ms ease, transform 160ms ease;
+}
+
+.kinshima-page .kp-featured-clans article:hover {
+  box-shadow: 0 16px 34px rgb(18 63 112 / 20%);
+  transform: translateY(-3px);
 }
 
 .kinshima-page .kp-featured-person {
-  height: 430px;
+  grid-row: 2;
+  min-height: 0;
+  border-radius: 16px 16px 0 0;
+  width: 100%;
+}
+
+.kinshima-page .kp-featured-person img {
+  object-position: center top;
 }
 
 .kinshima-page .kp-featured-crest {
-  height: 100px;
+  height: 126px;
   left: 50%;
   position: absolute;
-  top: -45px;
+  justify-self: center;
+  top: -24px;
   transform: translateX(-50%);
-  width: 110px;
+  width: 136px;
   z-index: 1;
 }
 
@@ -1443,24 +1506,50 @@
   object-fit: contain;
 }
 
-.kinshima-page .kp-featured-clans article > div {
-  background: #30292b;
-  bottom: 0;
-  left: 0;
-  padding: 14px 8px;
-  position: absolute;
+.kinshima-page .kp-featured-clans article > div:last-child {
+  background: var(--kinshima-blue);
+  border-radius: 0 0 16px 16px;
+  display: grid;
+  grid-row: 3;
+  min-width: 0;
+  padding: 13px 10px 15px;
+  place-content: center;
+  row-gap: 4px;
   width: 100%;
 }
 
 .kinshima-page .kp-featured-clans h3 {
+  color: #fff;
   font-size: 28px;
   line-height: 1;
+  overflow-wrap: anywhere;
 }
 
 .kinshima-page .kp-featured-clans p,
 .kinshima-page .kp-featured-clans a {
-  color: #fff;
+  color: #f5fbff;
   font-size: 16px;
+  line-height: 1.25;
+}
+
+.kinshima-page .kp-featured-clans p {
+  min-height: 40px;
+}
+
+.kinshima-page .kp-featured-clans .kp-featured-clan-link {
+  position: relative;
+  z-index: 1;
+}
+
+.kinshima-page .kp-featured-clans .kp-featured-clan-link::after {
+  content: "";
+  inset: 0;
+  position: absolute;
+}
+
+.kinshima-page .kp-featured-clans article:has(.kp-featured-clan-link:focus-visible) {
+  outline: 3px solid var(--kinshima-blue-bright);
+  outline-offset: 3px;
 }
 
 .kinshima-page .kp-heroes-clans > .kp-action {
@@ -1468,30 +1557,39 @@
 }
 
 .kinshima-page .kp-order-cards {
-  background: #f9e4e6;
+  background: #dceaf3;
   padding-bottom: 50px;
   text-align: center;
 }
 
 .kinshima-page .kp-order-banner {
   height: 580px;
-  margin-bottom: -80px;
+  margin-bottom: -130px;
   width: 100%;
 }
 
 .kinshima-page .kp-order-cards > div:last-of-type {
   display: grid;
-  gap: 26px;
+  gap: 28px;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  margin: 0 auto 28px;
+  margin: -168px auto -140px;
   max-width: 1200px;
+  padding: 0 24px;
+  position: relative;
+  z-index: 2;
 }
 
 .kinshima-page .kp-order-cards article {
   align-content: start;
+  background: rgb(255 255 255 / 96%);
+  border: 1px solid rgb(18 63 112 / 8%);
+  border-radius: 20px;
+  box-shadow: 0 18px 45px rgb(18 63 112 / 12%);
   display: grid;
+  grid-template-rows: 230px auto 1fr auto;
   justify-items: center;
-  padding: 0 6%;
+  min-height: 420px;
+  padding: 18px 26px 26px;
 }
 
 .kinshima-page .kp-order-mark {
@@ -1506,11 +1604,15 @@
 
 .kinshima-page .kp-order-cards h3 {
   font-size: 38px;
+  line-height: 1.05;
+  margin: 4px 0 10px;
 }
 
 .kinshima-page .kp-order-cards p {
   font-size: 17px;
   line-height: 1.35;
+  margin: 0;
+  max-width: 280px;
 }
 
 .kinshima-page .kp-order-cards article > a {
@@ -1518,9 +1620,15 @@
   margin-top: 14px;
 }
 
+.kinshima-page .kp-order-cards > .kp-action {
+  margin-top: 140px;
+  position: relative;
+  z-index: 3;
+}
+
 .kinshima-page .kp-herald-cta {
   align-items: center;
-  background: #e9cfd2;
+  background: #d7e7f4;
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -1821,19 +1929,36 @@
 }
 
 .kinshima-page .kp-order-list {
+  background: linear-gradient(180deg, #f8fbfd 0%, #edf5fa 34%, #dceaf5 68%, #f4f8fb 100%);
   display: grid;
-  gap: 100px;
-  padding: 70px 8%;
+  gap: 44px;
+  padding: 72px 8%;
 }
 
 .kinshima-page .kp-order-row {
   align-items: center;
+  border: 1px solid rgb(18 63 112 / 10%);
+  border-radius: 24px;
+  box-shadow: 0 18px 45px rgb(18 63 112 / 10%);
   display: grid;
   grid-template-columns: minmax(240px, 390px) 1fr;
   margin: auto;
   max-width: 1200px;
   min-height: 400px;
+  overflow: hidden;
   width: 100%;
+}
+
+.kinshima-page .kp-order-row.order-0 {
+  background: linear-gradient(135deg, #edf5fa 0%, #dceaf5 58%, #c8dff0 100%);
+}
+
+.kinshima-page .kp-order-row.order-1 {
+  background: linear-gradient(135deg, #c3daf0 0%, #dfedf7 52%, #f2f7fb 100%);
+}
+
+.kinshima-page .kp-order-row.order-2 {
+  background: linear-gradient(135deg, #eef6fa 0%, #d1e3f2 58%, #aecde3 100%);
 }
 
 .kinshima-page .kp-order-row.reverse {
@@ -2062,7 +2187,7 @@
 }
 
 .kinshima-page .kp-clan-leaders {
-  background: #e78c92;
+  background: #70a9d1;
   padding: 40px 6% 55px;
 }
 
@@ -2138,7 +2263,7 @@
 
 .kinshima-page .kp-route-cta {
   align-items: center;
-  background: #f7d8db;
+  background: #dbeaf5;
   display: flex;
   flex-direction: column;
   gap: 18px;
@@ -2214,7 +2339,7 @@
 }
 
 .kinshima-page .kp-2026-prologue > div:last-child {
-  background: #f8dfe1e8;
+  background: #dbe7f7e8;
   left: 0;
   padding: 44px 10%;
   position: absolute;
@@ -2276,7 +2401,7 @@
 }
 
 .kinshima-page .kp-2026-choices {
-  background: #f7e4e6;
+  background: #e1edf7;
   padding: 50px 5%;
   text-align: center;
 }
@@ -2428,7 +2553,7 @@
 }
 
 .kinshima-page .kp-medallion-warriors {
-  background: #f7e0e2;
+  background: #e1edf7;
   padding: 48px 4%;
 }
 
@@ -2562,7 +2687,7 @@
 
 .kinshima-page .kp-heralds-cta {
   align-items: center;
-  background: #ead0d3;
+  background: #d5e6f3;
   display: grid;
   gap: 40px;
   grid-template-columns: 1fr 1fr;
@@ -2732,7 +2857,7 @@
 
 .kinshima-page .kp-company-story {
   align-items: center;
-  background: #fae8e9;
+  background: #e1edf7;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -2757,7 +2882,7 @@
 }
 
 .kinshima-page .kp-company-gallery {
-  background: #f5dadd;
+  background: #d9e9f5;
   padding: 52px 4%;
 }
 
@@ -2853,7 +2978,7 @@
 }
 
 .kinshima-page .kp-hugen-gallery {
-  background: #f7dfe2;
+  background: #ddeaf7;
   padding: 45px 4%;
 }
 
@@ -2869,8 +2994,9 @@
   }
 
   .kinshima-page .kp-featured-clans {
-    grid-template-columns: repeat(5, minmax(180px, 1fr));
+    grid-template-columns: repeat(5, minmax(190px, 1fr));
     overflow-x: auto;
+    padding-bottom: 8px;
   }
 }
 
@@ -2963,25 +3089,28 @@
   .kinshima-page .kp-enthusiasm > div:last-child { padding: 18px; }
   .kinshima-page .kp-enthusiasm h2 { font-size: 30px; }
   .kinshima-page .kp-league-hero { height: 480px; margin-bottom: 0; }
-  .kinshima-page .kp-league-wordmark { height: 145px; top: 180px; width: 72vw; }
-  .kinshima-page .kp-league-hero > p { font-size: 21px; padding: 18px; }
-  .kinshima-page .kp-league-join { height: 300px; margin-bottom: 40px; }
+  .kinshima-page .kp-league-wordmark { bottom: 116px; height: 190px; padding: 10px 14px; width: 82vw; }
+  .kinshima-page .kp-league-hero > p { font-size: 21px; padding: 55px 16px 20px; }
+  .kinshima-page .kp-league-join { height: 300px; margin-bottom: 0; }
   .kinshima-page .kp-league-intro { height: 560px; }
-  .kinshima-page .kp-league-intro-wordmark { height: 220px; top: 45px; width: 82vw; }
-  .kinshima-page .kp-league-intro > div:last-child { padding: 18px; }
-  .kinshima-page .kp-league-intro h1 { font-size: 42px; }
-  .kinshima-page .kp-league-intro p { font-size: 16px; }
+  .kinshima-page .kp-league-intro-wordmark { height: 170px; margin: -12px auto -2px; width: 320px; }
+  .kinshima-page .kp-league-intro > div:last-child { border-radius: 16px; padding: 16px 18px 18px; width: calc(100% - 24px); }
+  .kinshima-page .kp-league-intro h1 { font-size: 42px; line-height: 1; margin-bottom: 8px; }
+  .kinshima-page .kp-league-intro p { font-size: 15px; line-height: 1.38; margin-bottom: 6px; }
   .kinshima-page .kp-league-transition-banner { height: 220px; }
   .kinshima-page .kp-league-transition-banner-wide { height: 270px; margin-top: 24px; }
   .kinshima-page .kp-foundation-cards,
   .kinshima-page .kp-order-cards > div:last-of-type,
   .kinshima-page .kp-2026-foundations > div { grid-template-columns: 1fr; }
-  .kinshima-page .kp-foundation-cards article { min-height: 330px; }
+  .kinshima-page .kp-foundation-cards article { gap: 12px; grid-template-rows: 138px auto 1fr auto; min-height: 360px; }
+  .kinshima-page .kp-foundation-mark { height: 138px; width: 190px; }
   .kinshima-page .kp-featured-clans { grid-template-columns: repeat(5, 170px); }
-  .kinshima-page .kp-featured-clans article { min-height: 390px; }
-  .kinshima-page .kp-featured-person { height: 300px; }
-  .kinshima-page .kp-order-banner { height: 300px; margin-bottom: -35px; }
-  .kinshima-page .kp-order-cards article { padding: 18px 24px; }
+  .kinshima-page .kp-featured-clans article { grid-template-rows: 44px 250px 112px; }
+  .kinshima-page .kp-featured-crest { height: 96px; top: -18px; width: 112px; }
+  .kinshima-page .kp-order-cards > div:last-of-type { margin: -136px auto -96px; padding: 0 18px; }
+  .kinshima-page .kp-order-cards > .kp-action { margin-top: 96px; }
+  .kinshima-page .kp-order-banner { height: 300px; margin-bottom: -55px; }
+  .kinshima-page .kp-order-cards article { grid-template-rows: 180px auto 1fr auto; min-height: 340px; padding: 18px 24px; }
   .kinshima-page .kp-order-mark { height: 180px; }
   .kinshima-page .kp-herald-cta { min-height: 310px; }
   .kinshima-page .kp-clans-hero { align-items: end; height: 700px; padding-bottom: 16px; }

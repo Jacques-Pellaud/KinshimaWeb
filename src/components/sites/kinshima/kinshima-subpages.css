@@ -104,10 +104,27 @@
   z-index: 1;
 }
 
+/* Blue translucent halo behind the project marks: it separates their fine
+   details from the mountain photograph without hiding the artwork. */
+.kinshima-page .kp-project-hero-logos {
+  isolation: isolate;
+}
+
+.kinshima-page .kp-project-hero-logos::before {
+  background: radial-gradient(ellipse at center in oklab, rgb(18 63 112 / 86%) 0%, rgb(18 63 112 / 68%) 42%, rgb(18 63 112 / 30%) 68%, transparent 82%);
+  content: "";
+  inset: -34px -10%;
+  pointer-events: none;
+  position: absolute;
+  z-index: 0;
+}
+
 .kinshima-page .kp-project-logo {
   flex: 1 1 0;
   height: 100%;
   max-width: 240px;
+  position: relative;
+  z-index: 1;
 }
 
 .kinshima-page .kp-project-logo img {
